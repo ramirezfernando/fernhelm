@@ -13,12 +13,12 @@ public:
     Game();
     ~Game();
 
-    void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
-    void handleEvents();
-    void update();
-    void render();
-    void clean();
-    bool running();
+    void Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+    void HandleEvents();
+    void Update();
+    void Render();
+    void Clean();
+    bool Running();
 
 private:
     bool isRunning;

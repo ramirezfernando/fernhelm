@@ -22,15 +22,15 @@ int main(int argc, const char * argv[]) {
     Game *game = nullptr;
     game = new Game();
     
-    game->init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+    game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
 
-    while (game->running())
+    while (game->Running())
     {
         frameStart = SDL_GetTicks();
 
-        game->handleEvents();
-        game->update();
-        game->render();
+        game->HandleEvents();
+        game->Update();
+        game->Render();
 
         frameTime = SDL_GetTicks() - frameStart;
 
@@ -40,7 +40,7 @@ int main(int argc, const char * argv[]) {
         }
     }
     
-    game->clean();
+    game->Clean();
 
     
     return 0;

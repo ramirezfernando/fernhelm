@@ -1,7 +1,10 @@
 #include "Game.h"
+#include "Textures.h"
+#include "Character.h"
 
-SDL_Texture* playerTex;
-SDL_Rect srcRect, destRect;
+Character* player;
+Character* enemy;
+
 
 Game::Game()
 {
@@ -11,7 +14,7 @@ Game::~Game()
 {
 
 }
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     int flags = 0;
     if (fullscreen == true)
@@ -40,12 +43,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     {
         isRunning = false;
     }
+    // run plaer
+    player = new Character("assets/player.png", renderer, 0, 0);
+    enemy = new Character("assets/player.png", renderer, 50, 50);
 
-    SDL_Surface* tmpSurface = IMG_Load("assets/idle_1.png");
-    playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-    SDL_FreeSurface(tmpSurface);
 }
-void Game::handleEvents()
+void Game::HandleEvents()
 {
     SDL_Event event;
     SDL_PollEvent(&event);
@@ -61,28 +64,28 @@ void Game::handleEvents()
     }
 
 }
-void Game::update()
+void Game::Update()
 {
-    destRect.h = 128;
-    destRect.w = 128;
-
+    player->Update();
+    enemy->Update();
 }
-void Game::render()
+void Game::Render()
 {
     SDL_RenderClear(renderer);
     // This is where to add stuff to render, 
-    SDL_RenderCopy(renderer, playerTex, NULL, &destRect);
+    player->Render();
+    enemy->Render();
     //
     SDL_RenderPresent(renderer);
 }
-void Game::clean()
+void Game::Clean()
 {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     cout << "Game cleaned" << endl;
 }
-bool Game::running()
+bool Game::Running()
 {
     return isRunning;
 }

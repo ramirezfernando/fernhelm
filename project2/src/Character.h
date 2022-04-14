@@ -1,3 +1,4 @@
+#include "Game.h"
 #include <string>
 using namespace std;
 
@@ -7,19 +8,34 @@ using namespace std;
 class Character
 {
 public:
-    Character();
+    Character(const char* textureSheet, SDL_Renderer* ren, int xpos, int ypos);
+    ~Character();
+    void Update();
+    void Render();
+
+
     Character(string, int, int);
-    void setName(string);
-    void setLevel(int);
-    void setHealth(int);
-    string getName();
-    int getLevel();
-    int getHealth();
+  
+
+    void SetName(string);
+    void SetLevel(int);
+    void SetHealth(int);
+    string GetName();
+    int GetLevel();
+    int GetHealth();
+    void SaveProgress(); // file output
+    void LoadProgress(); // file input
 
 private:
     string name;
     int level;
     int health;
+    
+    SDL_Texture* characterTexture;
+    SDL_Rect srcRect, destRect;
+    SDL_Renderer* renderer;
+    int xpos;
+    int ypos;
 };
 
 #endif
