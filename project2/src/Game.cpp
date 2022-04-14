@@ -1,6 +1,7 @@
 #include "Game.h"
 
 SDL_Texture* playerTex;
+SDL_Rect srcRect, destRect;
 
 Game::Game()
 {
@@ -62,13 +63,15 @@ void Game::handleEvents()
 }
 void Game::update()
 {
+    destRect.h = 128;
+    destRect.w = 128;
 
 }
 void Game::render()
 {
     SDL_RenderClear(renderer);
     // This is where to add stuff to render, 
-    SDL_RenderCopy(renderer, playerTex, NULL, NULL);
+    SDL_RenderCopy(renderer, playerTex, NULL, &destRect);
     //
     SDL_RenderPresent(renderer);
 }
