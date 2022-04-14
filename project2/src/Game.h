@@ -19,11 +19,12 @@ public:
     void Render();
     void Clean();
     bool Running();
+    // creates a static renderer without the need of having multiple renderers
+    static SDL_Renderer* renderer;
 
 private:
     bool isRunning;
     SDL_Window *window;
-    SDL_Renderer *renderer;
 };
 
 #endif

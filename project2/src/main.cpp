@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
     Game *game = nullptr;
     game = new Game();
     
-    game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+    game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
 
     while (game->Running())
     {

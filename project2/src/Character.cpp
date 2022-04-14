@@ -1,10 +1,9 @@
 #include "Character.h"
 #include "Textures.h"
 
-Character::Character(const char* textureSheet, SDL_Renderer* ren, int x, int y)
+Character::Character(const char* textureSheet, int x, int y)
 {
-    renderer = ren;
-    characterTexture = Textures::LoadTexture(textureSheet, ren);
+    characterTexture = Textures::LoadTexture(textureSheet);
 
     xpos = x;
     ypos = y;
@@ -32,7 +31,7 @@ void Character::Update()
 }
 void Character::Render()
 {
-    SDL_RenderCopy(renderer, characterTexture, &srcRect, &destRect);
+    SDL_RenderCopy(Game::renderer, characterTexture, &srcRect, &destRect);
 }
 
 Character::Character(string _name, int _level, int _health)

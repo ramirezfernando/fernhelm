@@ -4,7 +4,8 @@
 
 Character* player;
 Character* enemy;
-
+// we haven't initialized SDL yet
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game()
 {
@@ -44,8 +45,8 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
         isRunning = false;
     }
     // run plaer
-    player = new Character("assets/player.png", renderer, 0, 0);
-    enemy = new Character("assets/player.png", renderer, 50, 50);
+    player = new Character("assets/player.png", 0, 0);
+    enemy = new Character("assets/player.png", 50, 50);
 
 }
 void Game::HandleEvents()

@@ -8,7 +8,7 @@ using namespace std;
 class Character
 {
 public:
-    Character(const char* textureSheet, SDL_Renderer* ren, int xpos, int ypos);
+    Character(const char* textureSheet, int xpos, int ypos);
     ~Character();
     void Update();
     void Render();
@@ -33,7 +33,6 @@ private:
     
     SDL_Texture* characterTexture;
     SDL_Rect srcRect, destRect;
-    SDL_Renderer* renderer;
     int xpos;
     int ypos;
 };
