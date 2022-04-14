@@ -2,13 +2,15 @@
 #include <iostream>
 #include <string>
 
+
 #include "Game.h"
 #include "Character.h"
+
 
 using namespace std;
 
 
-int main() {
+int main(int argc, const char * argv[]) {
     Game *game = nullptr;
     game = new Game();
     

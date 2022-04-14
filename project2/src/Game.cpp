@@ -73,5 +73,5 @@ void Game::clean()
 }
 bool Game::running()
 {
-    
+    return isRunning;
 }
