@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 #ifndef GAME_H
@@ -21,7 +22,7 @@ public:
     bool Running();
     // creates a static renderer without the need of having multiple renderers
     static SDL_Renderer* renderer;
-
+    static SDL_Event event;
 private:
     bool isRunning;
     SDL_Window *window;
