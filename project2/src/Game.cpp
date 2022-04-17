@@ -3,7 +3,7 @@
 #include "Character.h"
 #include "Background.h"
 
-Character* player;
+//Character* player;
 //Character* enemy;
 Background* forest;
 
@@ -57,7 +57,6 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
         // run players
     //player = new Character("assets/player.png", -80, 20);
 
-    player = new Character("assets/GroundMonk/4_sp_atk", 25, 100, -80, 20);
     //enemy = new Character("assets/player.png", 340, 20);
 }
 void Game::HandleEvents()
@@ -70,8 +69,8 @@ void Game::HandleEvents()
             isRunning = false;        
             break;
         case SDL_MOUSEBUTTONDOWN: // && click in a certain box, testing right now
-            isRunning = false;
-            break;
+
+            //player = new Character("assets/GroundMonk/4_sp_atk", 25, 100, -80, 20);
         default:
             break;
     }
@@ -80,7 +79,7 @@ void Game::HandleEvents()
 void Game::Update()
 {
     forest->Update();
-    player->Update();
+    //player->Update();
     //enemy->Update();
 }
 void Game::Render()
@@ -88,7 +87,7 @@ void Game::Render()
     SDL_RenderClear(renderer);
     // This is where to add stuff to render, 
     forest->Render();
-    player->Render();
+    //player->Render();
     //enemy->Render();
     //
     SDL_RenderPresent(renderer);

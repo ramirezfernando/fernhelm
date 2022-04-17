@@ -8,39 +8,57 @@ using namespace std;
 class Character
 {
 public:
-    Character(const char* textureSheet, int xpos, int ypos);
-    Character(const string path, int numFrames, int _speed, int xpos, int ypos);
-
+    //Character(const char* textureSheet, int xpos, int ypos, string name, int level, int health, int stamina);
+    Character(const string _path, int _frames, int _speed, int xpos, int ypos, string name, int level, int health, int stamina);
     ~Character();
     void Update();
     void Render();
 
+    void SetPath(string);
+    void SetFrames(int);
+    void SetSpeed(int);
+    void SetCount(int);
 
-    Character(string, int, int);
     void SetName(string);
     void SetLevel(int);
     void SetHealth(int);
+    void SetStamina(int);
+
+    string GetPath();
+    int GetFrames();
+    int GetSpeed();
+    int GetCount();
+
     string GetName();
     int GetLevel();
     int GetHealth();
+    int GetStamina();
+
+   
+
     void SaveProgress(); // file output
-    void LoadProgress(); // file input
+    void LoadProgress(string file); // file input
+
 
 private:
-    string name;
-    int level;
-    int health;
-    
+    // image/sprite variables
     SDL_Texture* characterTexture;
     SDL_Rect srcRect, destRect;
     int xpos;
     int ypos;
 
+    // variables for animation
     string path;
     int frames;
     int speed;
-    bool animated;
     int count;
+
+    // game variables
+    string name;
+    int level;
+    int health;
+    int stamina;
+    
 };
 
 #endif

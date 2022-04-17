@@ -1,41 +1,37 @@
 #include "Character.h"
 #include "Textures.h"
 
-Character::Character(const char* textureSheet, int x, int y)
-{
-    characterTexture = Textures::LoadTexture(textureSheet);
 
-    xpos = x;
-    ypos = y;
-    /*
-    name = "Unknown";
-    level = 1;
-    health = 100;
-    */
-}
-Character::Character(string _path, int numFrames, int _speed, int x, int y)
+Character::Character(const string _path, int _frames, int _speed, int x, int y, string _name, int _level, int _health, int _stamina)
 {
     //const char* file = ((_folder + "/" + _action + "/" + _action + "_" + to_string(1) + ".png").c_str());
-    string filename = path+"/"+"1.png";
+    string filename = _path+"/"+"1.png";
     const char* file = filename.c_str();
     characterTexture = Textures::LoadTexture(file);
-
     xpos = x;
     ypos = y;
 
     path = _path;
-    frames = numFrames;
+    frames = _frames;
     speed = _speed;
-    animated = true;
     count = 0;
+
+    name = _name;
+    level = _level;
+    health = _health;
+    stamina = _stamina;
+}
+
+
+Character::~Character()
+{
+
 }
 
 void Character::Update()
 {
     // implement movement animation
-    if (animated)
-    {
-       if (count <= frames)
+    if (count <= frames)
        {
         // conversions because "LoadTexture" takes a "const char*" as input
         // ex path = "assests/FireKnight/1_atk"
@@ -51,9 +47,6 @@ void Character::Update()
            // count = 1 because all my file names start at 1
             count = 1;
        }
-        
-    }
-
     
     //xpos++;
     //SDL_Delay(1000/25);
@@ -70,17 +63,29 @@ void Character::Update()
     destRect.h = srcRect.h * 2;
     destRect.w = srcRect.w * 2;
 }
+
 void Character::Render()
 {
     SDL_RenderCopy(Game::renderer, characterTexture, &srcRect, &destRect);
 }
 
-Character::Character(string _name, int _level, int _health)
+void Character::SetPath(string _path)
 {
-    name = _name;
-    level = _level;
-    health = _health;
+    path = _path;
 }
+void Character::SetFrames(int _frames)
+{
+    frames = _frames;
+}
+void Character::SetSpeed(int _speed)
+{
+    speed = _speed;
+}
+void Character::SetCount(int _count)
+{
+    count = _count;
+}
+
 void Character::SetName(string _name)
 {
     name = _name;
@@ -93,6 +98,28 @@ void Character::SetHealth(int _health)
 {
     health = _health;
 }
+void Character::SetStamina(int _stamina)
+{
+    stamina = _stamina;
+}
+
+string Character::GetPath()
+{
+    return path;
+}
+int Character::GetFrames()
+{
+    return frames;
+}
+int Character::GetSpeed()
+{
+    return speed;
+}
+int Character::GetCount()
+{
+    return count;
+}
+
 string Character::GetName()
 {
     return name;
@@ -104,4 +131,17 @@ int Character::GetLevel()
 int Character::GetHealth()
 {
     return health;
+}
+int Character::GetStamina()
+{
+    return stamina;
+}
+
+void Character::SaveProgress()
+{
+
+}
+void Character::LoadProgress(string file)
+{
+
 }
