@@ -9,7 +9,7 @@ Background::Background(const char* background, int x, int y)
 }
 Background::~Background()
 {
-
+    SDL_DestroyTexture(backgroundTexture);
 }
 void Background::Update()
 {

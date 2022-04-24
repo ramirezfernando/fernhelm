@@ -1,11 +1,15 @@
 #include "Game.h"
 #include "Textures.h"
 #include "Character.h"
+#include "FireKnight.h"
+#include "GroundMonk.h"
+#include "WaterPriestess.h"
 #include "Background.h"
 
-//Character* player;
-//Character* enemy;
+Background* roster;
 Background* forest;
+FireKnight* player;
+//GroundMonk* player;
 
 // we haven't initialized SDL yet
 SDL_Renderer* Game::renderer = nullptr;
@@ -51,13 +55,12 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
     }
     // Choose your character screen
 
-    // Duel screen
-        // run forest background
     forest = new Background("assets/forest.png", 0, 0);
-        // run players
-    //player = new Character("assets/player.png", -80, 20);
+    player = new FireKnight();
+    roster = new Background("assets/roster.png", 0, 0);
 
-    //enemy = new Character("assets/player.png", 340, 20);
+    //forest = new Background("assets/forest.png", 0, 0);
+
 }
 void Game::HandleEvents()
 {
@@ -69,8 +72,10 @@ void Game::HandleEvents()
             isRunning = false;        
             break;
         case SDL_MOUSEBUTTONDOWN: // && click in a certain box, testing right now
+            //delete roster;
+            //player = GroundMonk("assets/GroundMonk/idle", 6, 100, -80, 20, "Hey", 1, 100, 100);
 
-            //player = new Character("assets/GroundMonk/4_sp_atk", 25, 100, -80, 20);
+
         default:
             break;
     }
@@ -78,16 +83,18 @@ void Game::HandleEvents()
 }
 void Game::Update()
 {
+    roster->Update();
     forest->Update();
-    //player->Update();
+    player->Update();
     //enemy->Update();
 }
 void Game::Render()
 {
     SDL_RenderClear(renderer);
     // This is where to add stuff to render, 
+    roster->Render();
     forest->Render();
-    //player->Render();
+    player->Render();
     //enemy->Render();
     //
     SDL_RenderPresent(renderer);
@@ -95,7 +102,7 @@ void Game::Render()
 void Game::Clean()
 {
     // add destructors for character and background
-
+    player->Clean();
 
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);

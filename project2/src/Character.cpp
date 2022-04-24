@@ -1,7 +1,7 @@
 #include "Character.h"
 #include "Textures.h"
 
-
+/*
 Character::Character(const string _path, int _frames, int _speed, int x, int y, string _name, int _level, int _health, int _stamina)
 {
     //const char* file = ((_folder + "/" + _action + "/" + _action + "_" + to_string(1) + ".png").c_str());
@@ -14,7 +14,7 @@ Character::Character(const string _path, int _frames, int _speed, int x, int y, 
     path = _path;
     frames = _frames;
     speed = _speed;
-    count = 0;
+    count = 1;
 
     name = _name;
     level = _level;
@@ -22,14 +22,31 @@ Character::Character(const string _path, int _frames, int _speed, int x, int y, 
     stamina = _stamina;
 }
 
+Character::Character(const string _path, int _frames, int _speed)
+{
+    //const char* file = ((_folder + "/" + _action + "/" + _action + "_" + to_string(1) + ".png").c_str());
+    string filename = _path+"/"+"1.png";
+    const char* file = filename.c_str();
+    characterTexture = Textures::LoadTexture(file);
+ 
+
+    path = _path;
+    frames = _frames;
+    speed = _speed;
+    count = 1;
+}
+*/
 
 Character::~Character()
 {
-
+    SDL_DestroyTexture(characterTexture);
 }
 
-void Character::Update()
+// MAYBE MAKE UPDATE A VIRTUAL FUNCTION 
+
+void Character::Update() 
 {
+    
     // implement movement animation
     if (count <= frames)
        {
@@ -47,11 +64,6 @@ void Character::Update()
            // count = 1 because all my file names start at 1
             count = 1;
        }
-    
-    //xpos++;
-    //SDL_Delay(1000/25);
-    //ypos++;
-    //SDL_Delay(1000/25);
 
     srcRect.h = 200;
     srcRect.w = 300;
@@ -64,10 +76,38 @@ void Character::Update()
     destRect.w = srcRect.w * 2;
 }
 
+
 void Character::Render()
 {
     SDL_RenderCopy(Game::renderer, characterTexture, &srcRect, &destRect);
 }
+
+void Character::Clean()
+{
+    SDL_DestroyTexture(characterTexture);
+}
+// Setters 
+void Character::SetTexture(const char* texture)
+{
+    characterTexture = Textures::LoadTexture(texture);
+}
+void Character::SetSourceRect(SDL_Rect src)
+{
+    srcRect = src;
+}
+void Character::SetDestinationRect(SDL_Rect dest)
+{
+    destRect = dest;
+}
+void Character::SetXPos(int x)
+{
+    xpos = x;
+}
+void Character::SetYPos(int y)
+{
+    ypos = y;
+}
+
 
 void Character::SetPath(string _path)
 {
@@ -85,7 +125,6 @@ void Character::SetCount(int _count)
 {
     count = _count;
 }
-
 void Character::SetName(string _name)
 {
     name = _name;
@@ -103,6 +142,7 @@ void Character::SetStamina(int _stamina)
     stamina = _stamina;
 }
 
+// Getters
 string Character::GetPath()
 {
     return path;
@@ -119,7 +159,6 @@ int Character::GetCount()
 {
     return count;
 }
-
 string Character::GetName()
 {
     return name;
@@ -137,6 +176,30 @@ int Character::GetStamina()
     return stamina;
 }
 
+// Actions
+void Character::Idle(const string _path, int _frames, int _speed)
+{    
+    const char* file = _path.c_str();
+    characterTexture = Textures::LoadTexture(file);
+    frames = _frames;
+    speed = _speed;
+    count = 1;
+   
+}
+void Character::TakeDamage(const string _path, int _frames, int _speed)
+{
+
+}
+void Character::Defend(const string _path, int _frames, int _speed)
+{
+
+}
+void Character::Death(const string _path, int _frames, int _speed)
+{
+
+}
+
+// Save/Load data 
 void Character::SaveProgress()
 {
 
