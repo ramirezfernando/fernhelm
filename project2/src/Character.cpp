@@ -62,7 +62,7 @@ void Character::Update()
        else 
        {
            // count = 1 because all my file names start at 1
-            count = 1;
+            //count = 1;
        }
 
     srcRect.h = 200;
@@ -137,10 +137,6 @@ void Character::SetHealth(int _health)
 {
     health = _health;
 }
-void Character::SetStamina(int _stamina)
-{
-    stamina = _stamina;
-}
 
 // Getters
 string Character::GetPath()
@@ -171,11 +167,8 @@ int Character::GetHealth()
 {
     return health;
 }
-int Character::GetStamina()
-{
-    return stamina;
-}
 
+/*
 // Actions
 void Character::Idle(const string _path, int _frames, int _speed)
 {    
@@ -184,7 +177,6 @@ void Character::Idle(const string _path, int _frames, int _speed)
     frames = _frames;
     speed = _speed;
     count = 1;
-   
 }
 void Character::TakeDamage(const string _path, int _frames, int _speed)
 {
@@ -198,7 +190,41 @@ void Character::Death(const string _path, int _frames, int _speed)
 {
 
 }
+*/
+/*
+void Character::Attack1()
+{
 
+}
+void Character::Attack2()
+{
+
+}
+void Character::Attack3()
+{
+
+}
+void Character::Attack4()
+{
+
+}
+void Character::Death()
+{
+
+}
+void Character::Defend()
+{
+
+}
+void Character::Idle()
+{
+
+}
+void Character::TakeDamage()
+{
+
+}
+*/
 // Save/Load data 
 void Character::SaveProgress()
 {

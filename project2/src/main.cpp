@@ -21,13 +21,13 @@ int main(int argc, const char * argv[]) {
 
     Game *game = nullptr;
     game = new Game();
-    
+
+    //game->Menu();
     game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
 
     while (game->Running())
     {
         frameStart = SDL_GetTicks();
-
         game->HandleEvents();
         game->Update();
         game->Render();

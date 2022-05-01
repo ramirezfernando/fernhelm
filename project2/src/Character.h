@@ -8,12 +8,7 @@ using namespace std;
 class Character
 {
 public:
-    //Character(const char* textureSheet, int xpos, int ypos, string name, int level, int health, int stamina);
-    //Character(const string _path, int _frames, int _speed, int xpos, int ypos, string name, int level, int health, int stamina);
-    //Character(const string _path, int _frames, int _speed);
     ~Character();
-
-
     void Update();
     void Render();
     void Clean();
@@ -32,7 +27,6 @@ public:
     void SetName(string);
     void SetLevel(int);
     void SetHealth(int);
-    void SetStamina(int);
 
     SDL_Texture* GetTexture();
     SDL_Rect GetSourceRect();
@@ -48,14 +42,22 @@ public:
     string GetName();
     int GetLevel();
     int GetHealth();
-    int GetStamina();
 
     // Actions every character that inherits does
-    void Idle(const string _path, int _frames, int _speed);
-    void TakeDamage(const string _path, int _frames, int _speed);
-    void Defend(const string _path, int _frames, int _speed);
-    void Death(const string _path, int _frames, int _speed);
-
+    /*
+    Yes we can create a pointer to an abstract class, 
+    which could be actually pointing to the objects of its derived classes. 
+    In this way, a container of base class pointers can be 
+    created which can also store derived class objects.
+    */
+    virtual void Attack1() = 0;
+    virtual void Attack2() = 0;
+    virtual void Attack3() = 0;
+    virtual void Attack4() = 0;
+    virtual void Death() = 0;
+    virtual void Defend() = 0;
+    virtual void Idle() = 0;
+    virtual void TakeDamage() = 0;
 
     void SaveProgress(); // file output
     void LoadProgress(string file); // file input
@@ -77,9 +79,7 @@ protected:
     // game variables
     string name;
     int level;
-    int health;
-    int stamina;
-    
+    int health;    
 };
 
 #endif
