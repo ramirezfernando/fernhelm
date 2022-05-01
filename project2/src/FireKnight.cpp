@@ -12,6 +12,7 @@ FireKnight::FireKnight()
     SetFrames(8);
     SetSpeed(100);
     SetCount(1);
+    SetRepeat(true); // will repeat the animation
 
     SetName("Unknown");
     SetLevel(1);
@@ -20,7 +21,28 @@ FireKnight::FireKnight()
     stamina = 100;
 }
 
-FireKnight::FireKnight(const string path, int frames, int speed, int xpos, int ypos, string name, int level, int health, int _stamina)
+FireKnight::FireKnight(bool enemy)
+{
+    SetEnemy(enemy);
+    const char* file = "assets/FireKnight/idle";
+    SetTexture(file);
+    SetXPos(-80);
+    SetYPos(100);
+
+    SetPath("assets/FireKnight/idle");
+    SetFrames(8);
+    SetSpeed(100);
+    SetCount(1);
+    SetRepeat(true);
+
+    SetName("Unknown");
+    SetLevel(1);
+    SetHealth(100);
+
+    stamina = 100;
+}
+
+FireKnight::FireKnight(const string path, int frames, int speed, int xpos, int ypos, string name, int level, int health, int _stamina, bool enemy)
 {
     string filename = path+"/"+"1.png";
     const char* file = filename.c_str();
@@ -36,6 +58,7 @@ FireKnight::FireKnight(const string path, int frames, int speed, int xpos, int y
     SetName(name);
     SetLevel(level);
     SetHealth(health);
+    SetEnemy(enemy);
 
     stamina = _stamina;
 }
@@ -49,6 +72,7 @@ void FireKnight::Attack1()
     SetFrames(11);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void FireKnight::Attack2() 
@@ -60,6 +84,7 @@ void FireKnight::Attack2()
     SetFrames(19);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void FireKnight::Attack3() 
@@ -71,6 +96,7 @@ void FireKnight::Attack3()
     SetFrames(28);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void FireKnight::Attack4() 
@@ -82,6 +108,7 @@ void FireKnight::Attack4()
     SetFrames(18);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void FireKnight::Death()
@@ -93,6 +120,7 @@ void FireKnight::Death()
     SetFrames(13);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 void FireKnight::Defend()
 {
@@ -103,6 +131,7 @@ void FireKnight::Defend()
     SetFrames(10);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 void FireKnight::Idle()
 {
@@ -113,6 +142,7 @@ void FireKnight::Idle()
     SetFrames(8);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(true);
 }
 void FireKnight::TakeDamage() 
 {
@@ -123,6 +153,7 @@ void FireKnight::TakeDamage()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 

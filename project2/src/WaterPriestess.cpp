@@ -12,6 +12,7 @@ WaterPriestess::WaterPriestess()
     SetFrames(8);
     SetSpeed(70);
     SetCount(1);
+    SetRepeat(true);
 
     SetName("Unknown");
     SetLevel(1);
@@ -50,6 +51,7 @@ void WaterPriestess::Attack1()
     SetFrames(7);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void WaterPriestess::Attack2() 
@@ -61,6 +63,7 @@ void WaterPriestess::Attack2()
     SetFrames(21);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void WaterPriestess::Attack3() 
@@ -72,6 +75,7 @@ void WaterPriestess::Attack3()
     SetFrames(27);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void WaterPriestess::Attack4() 
@@ -83,6 +87,7 @@ void WaterPriestess::Attack4()
     SetFrames(32);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void WaterPriestess::Death()
@@ -94,6 +99,7 @@ void WaterPriestess::Death()
     SetFrames(16);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 void WaterPriestess::Defend()
 {
@@ -104,6 +110,7 @@ void WaterPriestess::Defend()
     SetFrames(12);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 void WaterPriestess::Idle()
 {
@@ -114,6 +121,7 @@ void WaterPriestess::Idle()
     SetFrames(8);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(true);
 }
 void WaterPriestess::TakeDamage() 
 {
@@ -124,4 +132,5 @@ void WaterPriestess::TakeDamage()
     SetFrames(7);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }

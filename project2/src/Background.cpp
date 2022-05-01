@@ -7,10 +7,7 @@ Background::Background(const char* background, int x, int y)
     xpos = x;
     ypos = y;
 }
-Background::~Background()
-{
-    SDL_DestroyTexture(backgroundTexture);
-}
+
 void Background::Update()
 {
     srcRect.h = 640;
@@ -26,4 +23,8 @@ void Background::Update()
 void Background::Render()
 {
     SDL_RenderCopy(Game::renderer, backgroundTexture, &srcRect, &destRect);
+}
+void Background::Clean()
+{
+    SDL_DestroyTexture(backgroundTexture);
 }

@@ -9,7 +9,7 @@
 
 Background* forest;
 Character* player;
-
+Character* enemy;
 
 // we haven't initialized SDL yet
 SDL_Renderer* Game::renderer = nullptr;
@@ -138,7 +138,8 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
     }
 
     forest = new Background("assets/forest.png", 0, 0);
-    //RenderHPBar(0, 0, 200, 200, 0.75, color(124, 177, 82, 1), color(124, 177, 82, 1), renderer);
+    enemy = new FireKnight(true);
+    RenderHPBar(0, 0, 200, 200, 0.75, color(124, 177, 82, 1), color(124, 177, 82, 1), renderer);
 
 }
 void Game::HandleEvents()
@@ -170,6 +171,7 @@ void Game::HandleEvents()
                     player->Attack4();
                     break;
                 default:
+                    player->Idle();
                     break;
                 }
         default:
@@ -181,7 +183,7 @@ void Game::Update()
 {
     forest->Update();
     player->Update();
-    //enemy->Update();
+    enemy->Update();
 }
 void Game::Render()
 {
@@ -189,15 +191,17 @@ void Game::Render()
     // This is where to add stuff to render, 
     forest->Render();
     player->Render();
-    //enemy->Render();
+    enemy->Render();
     //
     SDL_RenderPresent(renderer);
 }
 void Game::Clean()
 {
     // add destructors for character and background
+    forest->Clean();
     player->Clean();
-    forest->~Background();
+    enemy->Clean();
+
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();

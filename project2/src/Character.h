@@ -8,7 +8,6 @@ using namespace std;
 class Character
 {
 public:
-    ~Character();
     void Update();
     void Render();
     void Clean();
@@ -23,10 +22,12 @@ public:
     void SetFrames(int);
     void SetSpeed(int);
     void SetCount(int);
+    void SetRepeat(bool);
 
     void SetName(string);
     void SetLevel(int);
     void SetHealth(int);
+    void SetEnemy(bool);
 
     SDL_Texture* GetTexture();
     SDL_Rect GetSourceRect();
@@ -38,11 +39,12 @@ public:
     int GetFrames();
     int GetSpeed();
     int GetCount();
+    bool GetRepeat();
 
     string GetName();
     int GetLevel();
     int GetHealth();
-
+    bool GetEnemy();
     // Actions every character that inherits does
     /*
     Yes we can create a pointer to an abstract class, 
@@ -58,6 +60,7 @@ public:
     virtual void Defend() = 0;
     virtual void Idle() = 0;
     virtual void TakeDamage() = 0;
+
 
     void SaveProgress(); // file output
     void LoadProgress(string file); // file input
@@ -75,11 +78,13 @@ protected:
     int frames;
     int speed;
     int count;
+    bool repeat = false;
 
     // game variables
     string name;
     int level;
-    int health;    
+    int health;
+    bool enemy = false;
 };
 
 #endif

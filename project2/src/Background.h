@@ -9,9 +9,9 @@ class Background
 {
 public:
     Background(const char* background, int xpos, int ypos);
-    ~Background();
     void Update();
     void Render();
+    void Clean();
 
 
 private:

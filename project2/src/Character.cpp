@@ -1,69 +1,37 @@
 #include "Character.h"
 #include "Textures.h"
 
-/*
-Character::Character(const string _path, int _frames, int _speed, int x, int y, string _name, int _level, int _health, int _stamina)
-{
-    //const char* file = ((_folder + "/" + _action + "/" + _action + "_" + to_string(1) + ".png").c_str());
-    string filename = _path+"/"+"1.png";
-    const char* file = filename.c_str();
-    characterTexture = Textures::LoadTexture(file);
-    xpos = x;
-    ypos = y;
-
-    path = _path;
-    frames = _frames;
-    speed = _speed;
-    count = 1;
-
-    name = _name;
-    level = _level;
-    health = _health;
-    stamina = _stamina;
-}
-
-Character::Character(const string _path, int _frames, int _speed)
-{
-    //const char* file = ((_folder + "/" + _action + "/" + _action + "_" + to_string(1) + ".png").c_str());
-    string filename = _path+"/"+"1.png";
-    const char* file = filename.c_str();
-    characterTexture = Textures::LoadTexture(file);
- 
-
-    path = _path;
-    frames = _frames;
-    speed = _speed;
-    count = 1;
-}
-*/
-
-Character::~Character()
-{
-    SDL_DestroyTexture(characterTexture);
-}
-
-// MAYBE MAKE UPDATE A VIRTUAL FUNCTION 
 
 void Character::Update() 
 {
     
     // implement movement animation
     if (count <= frames)
-       {
+    {
         // conversions because "LoadTexture" takes a "const char*" as input
         // ex path = "assests/FireKnight/1_atk"
         // then filename would be "assests/FireKnight/1_atk/(count).png"
         string filename = path+"/"+ to_string(count) + ".png";
         const char* file = filename.c_str();
-        characterTexture = Textures::LoadTexture(file);
+        /*
+        if (enemy) 
+        {
+            // invert image
+        }
+        */
+        //else
+        //{
+            characterTexture = Textures::LoadTexture(file);
+        //}
         SDL_Delay(speed);
         count++;
-       } 
-       else 
-       {
-           // count = 1 because all my file names start at 1
-            //count = 1;
-       }
+    } 
+    else if (repeat) 
+    {
+        // count = 1 because all my file names start at 1
+        count = 1;
+    }
+   
 
     srcRect.h = 200;
     srcRect.w = 300;
@@ -107,8 +75,6 @@ void Character::SetYPos(int y)
 {
     ypos = y;
 }
-
-
 void Character::SetPath(string _path)
 {
     path = _path;
@@ -125,6 +91,10 @@ void Character::SetCount(int _count)
 {
     count = _count;
 }
+void Character::SetRepeat(bool _repeat)
+{
+    repeat = _repeat;
+}
 void Character::SetName(string _name)
 {
     name = _name;
@@ -136,6 +106,10 @@ void Character::SetLevel(int _level)
 void Character::SetHealth(int _health)
 {
     health = _health;
+}
+void Character::SetEnemy(bool _enemy)
+{
+    enemy = _enemy;
 }
 
 // Getters
@@ -155,6 +129,10 @@ int Character::GetCount()
 {
     return count;
 }
+bool Character::GetRepeat()
+{
+    return repeat;
+}
 string Character::GetName()
 {
     return name;
@@ -167,64 +145,10 @@ int Character::GetHealth()
 {
     return health;
 }
-
-/*
-// Actions
-void Character::Idle(const string _path, int _frames, int _speed)
-{    
-    const char* file = _path.c_str();
-    characterTexture = Textures::LoadTexture(file);
-    frames = _frames;
-    speed = _speed;
-    count = 1;
-}
-void Character::TakeDamage(const string _path, int _frames, int _speed)
+bool Character::GetEnemy()
 {
-
+    return enemy;
 }
-void Character::Defend(const string _path, int _frames, int _speed)
-{
-
-}
-void Character::Death(const string _path, int _frames, int _speed)
-{
-
-}
-*/
-/*
-void Character::Attack1()
-{
-
-}
-void Character::Attack2()
-{
-
-}
-void Character::Attack3()
-{
-
-}
-void Character::Attack4()
-{
-
-}
-void Character::Death()
-{
-
-}
-void Character::Defend()
-{
-
-}
-void Character::Idle()
-{
-
-}
-void Character::TakeDamage()
-{
-
-}
-*/
 // Save/Load data 
 void Character::SaveProgress()
 {

@@ -5,13 +5,14 @@ GroundMonk::GroundMonk()
     string path = "assets/GroundMonk/idle";
     const char* file = path.c_str();
     SetTexture(file);
-    SetXPos(-100); //-80
-    SetYPos(30); //20
+    SetXPos(-80); 
+    SetYPos(20); 
 
     SetPath(path);
     SetFrames(6);
     SetSpeed(100);
     SetCount(1);
+    SetRepeat(true);
 
     SetName("Unknown");
     SetLevel(1);
@@ -37,36 +38,6 @@ GroundMonk::GroundMonk(const string _path, int _frames, int _speed, int xpos, in
     SetHealth(health);
     chakra = _chakra;
 }
-/*
-void GroundMonk::UpperCut() 
-{
-    string filename = "assets/GroundMonk/1_atk/1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
-    SetPath("assets/GroundMonk/1_atk/1.png");
-    SetFrames(6);
-    SetCount(1);
-    SetSpeed(100);
-}
-void GroundMonk::RockSpike(const string _path, int _frames, int _speed)
-{
-    SetPath(_path);
-    SetFrames(_frames);
-    SetSpeed(_speed);
-}
-void GroundMonk::RockCrush(const string _path, int _frames, int _speed)
-{
-    SetPath(_path);
-    SetFrames(_frames);
-    SetSpeed(_speed);
-}
-void GroundMonk::Meditate(const string _path, int _frames, int _speed)
-{
-    SetPath(_path);
-    SetFrames(_frames);
-    SetSpeed(_speed);
-}
-*/
 
 void GroundMonk::Attack1() 
 {
@@ -77,6 +48,7 @@ void GroundMonk::Attack1()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void GroundMonk::Attack2() 
@@ -88,6 +60,7 @@ void GroundMonk::Attack2()
     SetFrames(12);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void GroundMonk::Attack3() 
@@ -99,6 +72,7 @@ void GroundMonk::Attack3()
     SetFrames(24);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void GroundMonk::Attack4() 
@@ -110,6 +84,7 @@ void GroundMonk::Attack4()
     SetFrames(25);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 
 void GroundMonk::Death()
@@ -121,6 +96,7 @@ void GroundMonk::Death()
     SetFrames(18);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 void GroundMonk::Defend()
 {
@@ -131,16 +107,18 @@ void GroundMonk::Defend()
     SetFrames(13);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
 void GroundMonk::Idle()
 {
     string filename = "assets/GroundMonk/idle";
     const char* file = filename.c_str();
     SetTexture(file);
-    SetPath("assets/FireKnight/idle");
+    SetPath("assets/GroundMonk/idle");
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(true);
 }
 void GroundMonk::TakeDamage() 
 {
@@ -151,4 +129,5 @@ void GroundMonk::TakeDamage()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
+    SetRepeat(false);
 }
