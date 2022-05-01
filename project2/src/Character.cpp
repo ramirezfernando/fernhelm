@@ -4,37 +4,6 @@
 
 void Character::Update() 
 {
-    
-    // implement movement animation
-    if (count <= frames )
-    {
-        // conversions because "LoadTexture" takes a "const char*" as input
-        // ex path = "assests/FireKnight/1_atk"
-        // then filename would be "assests/FireKnight/1_atk/(count).png"
-        string filename = path+"/"+ to_string(count) + ".png";
-        const char* file = filename.c_str();
-        /*
-        if (enemy) 
-        {
-            // invert image
-        }
-        */
-        //else
-        //{
-            characterTexture = Textures::LoadTexture(file);
-        //}
-        SDL_Delay(speed);
-        count++;
-    } 
-    /*
-    else if (repeat) 
-    {
-        // count = 1 because all my file names start at 1
-        count = 1;
-        
-    }
-    */
-    
     srcRect.h = 220; //200
     srcRect.w = 320; //300
     
@@ -45,12 +14,41 @@ void Character::Update()
     destRect.y = ypos;
     destRect.h = srcRect.h * 2;
     destRect.w = srcRect.w * 2;
+
+    // implement movement animation
+    if (count <= frames )
+    {
+        // conversions because "LoadTexture" takes a "const char*" as input
+        // ex: path = "assests/FireKnight/1_atk"
+        // then filename would be "assests/FireKnight/1_atk/(count).png"
+        string filename = path+"/"+ to_string(count) + ".png";
+        const char* file = filename.c_str();
+        characterTexture = Textures::LoadTexture(file);
+        SDL_Delay(speed);
+        count++;
+    } 
+    
+    else
+    {
+        // count = 1 because all my file names start at 1
+        count = 100;
+    }
+    
+    
+    
 }
 
 
 void Character::Render()
 {
-    SDL_RenderCopy(Game::renderer, characterTexture, &srcRect, &destRect);
+    // if enemy then the image needs to be inverted to face the other player
+    if (enemy) {
+        Textures::RenderInvertedTexture(characterTexture, srcRect, destRect, SDL_FLIP_HORIZONTAL);
+    }
+    else {
+        SDL_RenderCopy(Game::renderer, characterTexture, &srcRect, &destRect);
+    }
+    
 }
 
 void Character::Clean()

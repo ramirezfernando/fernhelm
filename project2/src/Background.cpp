@@ -1,17 +1,26 @@
 #include "Textures.h"
 #include "Background.h"
 
-Background::Background(const char* background, int x, int y)
+Background::Background(const char* background, int x, int y, bool _text)
 {
     backgroundTexture = Textures::LoadTexture(background);
     xpos = x;
     ypos = y;
+    text = _text;
+    path = std::string(background);
 }
 
 void Background::Update()
 {
-    srcRect.h = 640;
-    srcRect.w = 800;
+    if (text) {
+        const char* background = path.c_str();
+        backgroundTexture = Textures::LoadTexture(background);
+        srcRect.h = 180;
+        srcRect.w = 700;
+    } else {
+        srcRect.h = 640;
+        srcRect.w = 800;
+    }
     srcRect.x = 0;
     srcRect.y = 0;
 
@@ -27,4 +36,13 @@ void Background::Render()
 void Background::Clean()
 {
     SDL_DestroyTexture(backgroundTexture);
+}
+
+void Background::SetPath(string _path)
+{
+    path = _path;
+}
+string Background::GetPath()
+{
+    return path;
 }

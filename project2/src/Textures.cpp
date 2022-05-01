@@ -9,9 +9,9 @@ SDL_Texture* Textures::LoadTexture(const char* texture)
     return text;
 }
 
-SDL_Texture* Textures::LoadInvertedTexture(const char* texture)
+void Textures::RenderInvertedTexture(SDL_Texture* texture, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip)
 {
-    
+    SDL_RenderCopyEx(Game::renderer, texture, &src, &dest, NULL, NULL, flip);
 }
 
 

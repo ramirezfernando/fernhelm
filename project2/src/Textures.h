@@ -9,7 +9,7 @@ class Textures
 {
 public:
    static SDL_Texture* LoadTexture(const char* fileName);   
-   static SDL_Texture* LoadInvertedTexture(const char* fileName);
+   static void RenderInvertedTexture(SDL_Texture* texture, SDL_Rect src, SDL_Rect dest, SDL_RendererFlip flip);
 };
 
 #endif
