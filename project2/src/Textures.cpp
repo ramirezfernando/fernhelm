@@ -9,5 +9,9 @@ SDL_Texture* Textures::LoadTexture(const char* texture)
     return text;
 }
 
+SDL_Texture* Textures::LoadInvertedTexture(const char* texture)
+{
+    
+}
 
 

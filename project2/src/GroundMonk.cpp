@@ -12,7 +12,6 @@ GroundMonk::GroundMonk()
     SetFrames(6);
     SetSpeed(100);
     SetCount(1);
-    SetRepeat(true);
 
     SetName("Unknown");
     SetLevel(1);
@@ -48,7 +47,6 @@ void GroundMonk::Attack1()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void GroundMonk::Attack2() 
@@ -60,7 +58,6 @@ void GroundMonk::Attack2()
     SetFrames(12);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void GroundMonk::Attack3() 
@@ -72,7 +69,6 @@ void GroundMonk::Attack3()
     SetFrames(24);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void GroundMonk::Attack4() 
@@ -84,7 +80,6 @@ void GroundMonk::Attack4()
     SetFrames(25);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void GroundMonk::Death()
@@ -96,7 +91,6 @@ void GroundMonk::Death()
     SetFrames(18);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 void GroundMonk::Defend()
 {
@@ -107,7 +101,6 @@ void GroundMonk::Defend()
     SetFrames(13);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 void GroundMonk::Idle()
 {
@@ -118,7 +111,6 @@ void GroundMonk::Idle()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(true);
 }
 void GroundMonk::TakeDamage() 
 {
@@ -129,5 +121,4 @@ void GroundMonk::TakeDamage()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }

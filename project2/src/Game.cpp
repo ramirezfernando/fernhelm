@@ -157,18 +157,22 @@ void Game::HandleEvents()
                 case SDLK_1:
                     cout << "1" << endl;
                     player->Attack1();
+                    enemy->TakeDamage();
                     break;
                 case SDLK_2:
                     cout << "2" << endl;
                     player->Attack2();
+                    enemy->TakeDamage();
                     break;
                 case SDLK_3:
                     cout << "3" << endl;
                     player->Attack3();
+                    enemy->TakeDamage();
                     break;
                 case SDLK_4:
                     cout << "4" << endl;
                     player->Attack4();
+                    enemy->TakeDamage();
                     break;
                 default:
                     player->Idle();

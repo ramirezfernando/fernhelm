@@ -22,7 +22,6 @@ public:
     void SetFrames(int);
     void SetSpeed(int);
     void SetCount(int);
-    void SetRepeat(bool);
 
     void SetName(string);
     void SetLevel(int);
@@ -39,7 +38,6 @@ public:
     int GetFrames();
     int GetSpeed();
     int GetCount();
-    bool GetRepeat();
 
     string GetName();
     int GetLevel();
@@ -78,7 +76,6 @@ protected:
     int frames;
     int speed;
     int count;
-    bool repeat = false;
 
     // game variables
     string name;

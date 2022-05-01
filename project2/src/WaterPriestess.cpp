@@ -12,7 +12,6 @@ WaterPriestess::WaterPriestess()
     SetFrames(8);
     SetSpeed(70);
     SetCount(1);
-    SetRepeat(true);
 
     SetName("Unknown");
     SetLevel(1);
@@ -51,7 +50,6 @@ void WaterPriestess::Attack1()
     SetFrames(7);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void WaterPriestess::Attack2() 
@@ -63,7 +61,6 @@ void WaterPriestess::Attack2()
     SetFrames(21);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void WaterPriestess::Attack3() 
@@ -72,10 +69,9 @@ void WaterPriestess::Attack3()
     const char* file = filename.c_str();
     SetTexture(file);
     SetPath("assets/WaterPriestess/3_atk");
-    SetFrames(27);
+    SetFrames(28); // added image 28 from idle (1)
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void WaterPriestess::Attack4() 
@@ -84,10 +80,9 @@ void WaterPriestess::Attack4()
     const char* file = filename.c_str();
     SetTexture(file);
     SetPath("assets/WaterPriestess/4_sp_atk");
-    SetFrames(32);
+    SetFrames(33); // added image 33 from idle (1)
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void WaterPriestess::Death()
@@ -99,7 +94,6 @@ void WaterPriestess::Death()
     SetFrames(16);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 void WaterPriestess::Defend()
 {
@@ -110,7 +104,6 @@ void WaterPriestess::Defend()
     SetFrames(12);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 void WaterPriestess::Idle()
 {
@@ -121,7 +114,6 @@ void WaterPriestess::Idle()
     SetFrames(8);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(true);
 }
 void WaterPriestess::TakeDamage() 
 {
@@ -132,5 +124,4 @@ void WaterPriestess::TakeDamage()
     SetFrames(7);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }

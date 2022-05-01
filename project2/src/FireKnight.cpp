@@ -10,9 +10,8 @@ FireKnight::FireKnight()
 
     SetPath("assets/FireKnight/idle");
     SetFrames(8);
-    SetSpeed(100);
+    SetSpeed(20); //
     SetCount(1);
-    SetRepeat(true); // will repeat the animation
 
     SetName("Unknown");
     SetLevel(1);
@@ -26,14 +25,13 @@ FireKnight::FireKnight(bool enemy)
     SetEnemy(enemy);
     const char* file = "assets/FireKnight/idle";
     SetTexture(file);
-    SetXPos(-80);
-    SetYPos(100);
+    SetXPos(200);
+    SetYPos(20);
 
     SetPath("assets/FireKnight/idle");
     SetFrames(8);
     SetSpeed(100);
     SetCount(1);
-    SetRepeat(true);
 
     SetName("Unknown");
     SetLevel(1);
@@ -72,7 +70,6 @@ void FireKnight::Attack1()
     SetFrames(11);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void FireKnight::Attack2() 
@@ -84,7 +81,6 @@ void FireKnight::Attack2()
     SetFrames(19);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void FireKnight::Attack3() 
@@ -93,10 +89,9 @@ void FireKnight::Attack3()
     const char* file = filename.c_str();
     SetTexture(file);
     SetPath("assets/FireKnight/3_atk");
-    SetFrames(28);
+    SetFrames(29); // added image 29 from idle (1)
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void FireKnight::Attack4() 
@@ -108,7 +103,6 @@ void FireKnight::Attack4()
     SetFrames(18);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 void FireKnight::Death()
@@ -120,7 +114,6 @@ void FireKnight::Death()
     SetFrames(13);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 void FireKnight::Defend()
 {
@@ -131,7 +124,6 @@ void FireKnight::Defend()
     SetFrames(10);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 void FireKnight::Idle()
 {
@@ -142,7 +134,6 @@ void FireKnight::Idle()
     SetFrames(8);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(true);
 }
 void FireKnight::TakeDamage() 
 {
@@ -153,7 +144,6 @@ void FireKnight::TakeDamage()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
-    SetRepeat(false);
 }
 
 

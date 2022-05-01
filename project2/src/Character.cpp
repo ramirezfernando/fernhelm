@@ -6,7 +6,7 @@ void Character::Update()
 {
     
     // implement movement animation
-    if (count <= frames)
+    if (count <= frames )
     {
         // conversions because "LoadTexture" takes a "const char*" as input
         // ex path = "assests/FireKnight/1_atk"
@@ -26,15 +26,18 @@ void Character::Update()
         SDL_Delay(speed);
         count++;
     } 
+    /*
     else if (repeat) 
     {
         // count = 1 because all my file names start at 1
         count = 1;
+        
     }
-   
-
-    srcRect.h = 200;
-    srcRect.w = 300;
+    */
+    
+    srcRect.h = 220; //200
+    srcRect.w = 320; //300
+    
     srcRect.x = 0;
     srcRect.y = 0;
 
@@ -91,10 +94,7 @@ void Character::SetCount(int _count)
 {
     count = _count;
 }
-void Character::SetRepeat(bool _repeat)
-{
-    repeat = _repeat;
-}
+
 void Character::SetName(string _name)
 {
     name = _name;
@@ -129,10 +129,7 @@ int Character::GetCount()
 {
     return count;
 }
-bool Character::GetRepeat()
-{
-    return repeat;
-}
+
 string Character::GetName()
 {
     return name;
