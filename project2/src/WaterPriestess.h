@@ -4,7 +4,7 @@ class WaterPriestess : public Character
 {
     public:
         WaterPriestess();
-        WaterPriestess(const string _path, int _frames, int _speed, int xpos, int ypos, string name, int level, int health, int _mana);
+        WaterPriestess(string name, int level, int health, int _mana);
 
         void Attack1() override;
         void Attack2() override;

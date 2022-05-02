@@ -46,6 +46,8 @@ FireKnight::FireKnight(string name, int level, int health, int _stamina)
     SetFrames(8);
     SetSpeed(100);
     SetCount(1);
+    SetXPos(-80); 
+    SetYPos(20); 
 
     SetName(name);
     SetLevel(level);

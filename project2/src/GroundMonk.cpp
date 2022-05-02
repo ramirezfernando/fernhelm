@@ -25,6 +25,8 @@ GroundMonk::GroundMonk(string name, int level, int health, int _chakra)
     SetFrames(6);
     SetSpeed(100);
     SetCount(1);
+    SetXPos(-80); 
+    SetYPos(20); 
 
     SetName(name);
     SetLevel(level);

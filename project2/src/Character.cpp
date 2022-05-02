@@ -148,14 +148,29 @@ void Character::SaveProgress()
 {
 
 }
-void Character::LoadProgress(string file)
+string Character::LoadProgress(string file)
 {
-    ifstream fin(file);
+    string character, name, level, health, energy, combinedString;
+    ifstream fin("savedData/"+file);
     if (!fin.is_open()) {
         throw invalid_argument("No such file name.");
    }
 
-
-
-   fin.close();
+    while(!fin.eof()) {
+        fin >> character;
+        fin >> name;
+        fin >> level;
+        fin >> health;
+        fin >> energy;
+    }
+    /*
+    cout << character << endl;
+    cout << name << endl;
+    cout << level << endl;
+    cout << health << endl;
+    cout << energy << endl;
+    */
+    combinedString = character + " " + name + " " + level + " " + health + " " + energy; 
+    fin.close();
+    return combinedString;
 }

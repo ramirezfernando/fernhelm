@@ -61,7 +61,7 @@ public:
 
 
     void SaveProgress(); // file output
-    void LoadProgress(string file); // file input
+    string LoadProgress(string file); // file input
 
 
 protected:

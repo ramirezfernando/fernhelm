@@ -12,7 +12,6 @@ Background* textBox;
 Character* player;
 Character* enemy;
 Text* text;
-// we haven't initialized SDL yet
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 
@@ -20,7 +19,7 @@ string Game::Menu()
 {
     string fileName;
     int option, characterChoice;
-    bool valid = false, validCharacter = false, validFile;
+    bool valid = false, validCharacter = false, validFile = false;
 
     while(!valid) {
         cout << "+-------------------------+"<< endl 
@@ -62,15 +61,11 @@ string Game::Menu()
             while (!validFile) {
                 cout << "Enter character data file name:" << endl;
                 cin >> fileName;
-                cout << fileName << endl;
                 
                 // File input for loading character stats such as health, level, stamina
                 try {
-                    player->LoadProgress(fileName);
-                    /*
-                
-
-                    */
+                    string characterInfo = player->LoadProgress(fileName); // check inside Character.cpp for more info
+                    return characterInfo;
                 }
                 catch(invalid_argument& i) {
                     cout << i.what() << endl;
@@ -86,6 +81,8 @@ string Game::Menu()
 void Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     string userCharacter = Menu();
+    string character = "", name = "", level = "", health = "", energy = "";
+    int count = 1;
     if (userCharacter == "FireKnight") {
         player = new FireKnight();
     }
@@ -96,7 +93,48 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
         player = new GroundMonk();
     }
     else {
-        // parse file stuff
+        // parse userCharacter back into character, name, level, health & energy
+        cout << userCharacter << endl;
+        for(int i = 0; i < userCharacter.length(); i++) {
+            
+            if (userCharacter[i] == ' ') {
+                count++;
+            }
+            else if (count == 1) {
+                character = character + userCharacter[i];
+            }
+            else if (count == 2) {
+                name = name + userCharacter[i];
+            }
+            else if (count == 3) {
+                level = level + userCharacter[i];
+            }
+            else if (count == 4) {
+                health = health + userCharacter[i];
+            }
+            else if (count == 5) {
+                energy = energy + userCharacter[i];
+            }
+        }
+        /*
+        cout << endl;
+        cout << character << endl;
+        cout << name << endl;
+        cout << level << endl;
+        cout << health << endl;
+        cout << energy << endl;
+        cout << endl;
+        */
+        if (character == "FireKnight") {
+            player = new FireKnight(name,stoi(level),stoi(health),stoi(energy)); //stoi: string to int
+        }
+        else if (character == "WaterPriestess") {
+            player = new WaterPriestess(name,stoi(level),stoi(health),stoi(energy)); //stoi: string to int
+        }
+        else if (character == "GroundMonk") {
+            player = new GroundMonk(name,stoi(level),stoi(health),stoi(energy)); //stoi: string to int
+        } 
+          
     }
     
 

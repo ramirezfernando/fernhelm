@@ -20,24 +20,23 @@ WaterPriestess::WaterPriestess()
     mana = 100;
 }
 
-WaterPriestess::WaterPriestess(const string path, int frames, int speed, int xpos, int ypos, string name, int level, int health, int _mana)
+WaterPriestess::WaterPriestess(string name, int level, int health, int _mana)
 {
-    string filename = path+"/"+"1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
-    SetXPos(xpos);
-    SetYPos(ypos);
-
-    SetPath(path);
-    SetFrames(frames);
-    SetSpeed(speed);
+    SetPath("assets/WaterPriestess/idle");
+    SetFrames(8);
+    SetSpeed(100);
     SetCount(1);
+    SetXPos(-80); 
+    SetYPos(20); 
 
     SetName(name);
     SetLevel(level);
     SetHealth(health);
+     mana = _mana;
 
-    mana = _mana;
+    string filename = path+"/"+"1.png";
+    const char* file = filename.c_str();
+    SetTexture(file);
 }
 
 
