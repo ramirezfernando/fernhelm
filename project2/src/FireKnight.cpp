@@ -40,25 +40,22 @@ FireKnight::FireKnight(bool enemy)
     stamina = 100;
 }
 
-FireKnight::FireKnight(const string path, int frames, int speed, int xpos, int ypos, string name, int level, int health, int _stamina, bool enemy)
+FireKnight::FireKnight(string name, int level, int health, int _stamina)
 {
-    string filename = path+"/"+"1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
-    SetXPos(xpos);
-    SetYPos(ypos);
-
-    SetPath(path);
-    SetFrames(frames);
-    SetSpeed(speed);
+    SetPath("assets/FireKnight/idle");
+    SetFrames(8);
+    SetSpeed(100);
     SetCount(1);
 
     SetName(name);
     SetLevel(level);
     SetHealth(health);
-    SetEnemy(enemy);
-
     stamina = _stamina;
+
+    string filename = path+"/"+"1.png";
+    const char* file = filename.c_str();
+    SetTexture(file);
+
 }
 
 void FireKnight::Attack1() 
@@ -135,7 +132,7 @@ void FireKnight::Idle()
     SetCount(1);
     SetSpeed(100);
 }
-void FireKnight::TakeDamage() 
+void FireKnight::TakeDamage(int damage) 
 {
     string filename = "assets/FireKnight/take_hit";
     const char* file = filename.c_str();
@@ -144,6 +141,8 @@ void FireKnight::TakeDamage()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
+
+    SetHealth(health - damage);
 }
 
 

@@ -115,7 +115,7 @@ void WaterPriestess::Idle()
     SetCount(1);
     SetSpeed(100);
 }
-void WaterPriestess::TakeDamage() 
+void WaterPriestess::TakeDamage(int damage) 
 {
     string filename = "assets/WaterPriestess/take_hit";
     const char* file = filename.c_str();
@@ -124,4 +124,6 @@ void WaterPriestess::TakeDamage()
     SetFrames(7);
     SetCount(1);
     SetSpeed(100);
+
+    SetHealth(health - damage);
 }

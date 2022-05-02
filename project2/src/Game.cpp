@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include "Text.h"
 #include "Textures.h"
 #include "Character.h"
 #include "FireKnight.h"
@@ -11,17 +11,17 @@ Background* forest;
 Background* textBox;
 Character* player;
 Character* enemy;
-
+Text* text;
 // we haven't initialized SDL yet
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-
 
 string Game::Menu() 
 {
     string fileName;
     int option, characterChoice;
     bool valid = false, validCharacter = false, validFile;
+
     while(!valid) {
         cout << "+-------------------------+"<< endl 
             <<  "|      Elements RPG       |"<< endl
@@ -63,9 +63,18 @@ string Game::Menu()
                 cout << "Enter character data file name:" << endl;
                 cin >> fileName;
                 cout << fileName << endl;
-                /*
-                do file input
-                */
+                
+                // File input for loading character stats such as health, level, stamina
+                try {
+                    player->LoadProgress(fileName);
+                    /*
+                
+
+                    */
+                }
+                catch(invalid_argument& i) {
+                    cout << i.what() << endl;
+                }
             }
             
         default:
@@ -83,9 +92,13 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
     else if (userCharacter == "WaterPriestess") {
         player = new WaterPriestess();
     }
-    else {
+    else if (userCharacter == "GroundMonk") {
         player = new GroundMonk();
     }
+    else {
+        // parse file stuff
+    }
+    
 
 
     int flags = 0;
@@ -115,18 +128,32 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
     {
         isRunning = false;
     }
-
+    // Initializing SDL2_ttf (true type font)
+    if (TTF_Init() == -1) {
+        cout << "Could not initialize ttf" << endl;
+    }
+    else 
+    {
+        cout << "Initializing ttf" << endl;
+    }
     forest = new Background("assets/forest.png", 0, 0, false);
     textBox = new Background("assets/TextBoxes/Main.png", 40, 490, true);
     enemy = new FireKnight(true);
 
+    SDL_Color color = { 255, 255, 0};
+    text = new Text("assets/Fonts/8bit.ttf", 30, "TESTING", color);
+
+
 }
 void Game::HandleEvents()
 {
-    bool valid = true;
+    bool someoneAlive = true;
     SDL_PollEvent(&event);
+    
+   
     switch (event.type)
     {
+        
         case SDL_QUIT:
             isRunning = false;        
             break;
@@ -159,15 +186,24 @@ void Game::HandleEvents()
                 switch(event.key.keysym.sym){
                     case SDLK_1:
                         player->Attack1();
+                        //if (player->GetHealth() <= 0) { player->Death(); }
+                        if (enemy->GetHealth() <= 0) { enemy->Death(); }
+                        else { enemy->TakeDamage(2 * player->GetLevel()); }
                         break;
                     case SDLK_2:
                         player->Attack2();
+                        if (enemy->GetHealth() <= 0) { enemy->Death(); }
+                        else { enemy->TakeDamage(4 * player->GetLevel()); }
                         break;
                     case SDLK_3:
                         player->Attack3();
+                        if (enemy->GetHealth() <= 0) { enemy->Death(); }
+                        else { enemy->TakeDamage(8 * player->GetLevel()); }
                         break;
                     case SDLK_4:
                         player->Attack4();
+                        if (enemy->GetHealth() <= 0) { enemy->Death(); }
+                        else { enemy->TakeDamage(10 * player->GetLevel()); }
                         break;
                     default:
                         textBox->SetPath("assets/TextBoxes/Main.png");
@@ -176,7 +212,13 @@ void Game::HandleEvents()
             }
             else if(textBox->GetPath() == "assets/TextBoxes/Stats.png") 
             {
+                //SDL_Color color = {255, 0, 0, 255};
+                //Text text("assets/Fonts/8bit.ttf", 50, "Pooop", color);
                 switch(event.key.keysym.sym){
+                    case SDLK_1:
+
+                        text->Display(0,0);
+                        break;
                     default:
                         textBox->SetPath("assets/TextBoxes/Main.png");
                         break;
@@ -208,7 +250,7 @@ void Game::HandleEvents()
                 }
             }
             
-    }
+        }
     
 }
 void Game::Update()
@@ -240,6 +282,8 @@ void Game::Clean()
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
+    IMG_Quit();
+    TTF_Quit();
     cout << "Game cleaned" << endl;
 }
 bool Game::Running()

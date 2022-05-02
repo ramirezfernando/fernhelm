@@ -19,23 +19,21 @@ GroundMonk::GroundMonk()
     
     chakra = 100;
 }
-GroundMonk::GroundMonk(const string _path, int _frames, int _speed, int xpos, int ypos, string name, int level, int health, int _chakra)
+GroundMonk::GroundMonk(string name, int level, int health, int _chakra)
 {
-    string filename = path+"/"+"1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
-    SetXPos(xpos);
-    SetYPos(ypos);
-
-    SetPath(path);
-    SetFrames(frames);
-    SetSpeed(speed);
+    SetPath("assets/GroundMonk/idle");
+    SetFrames(6);
+    SetSpeed(100);
     SetCount(1);
 
     SetName(name);
     SetLevel(level);
     SetHealth(health);
     chakra = _chakra;
+
+    string filename = path+"/"+"1.png";
+    const char* file = filename.c_str();
+    SetTexture(file);
 }
 
 void GroundMonk::Attack1() 
@@ -112,7 +110,7 @@ void GroundMonk::Idle()
     SetCount(1);
     SetSpeed(100);
 }
-void GroundMonk::TakeDamage() 
+void GroundMonk::TakeDamage(int damage) 
 {
     string filename = "assets/GroundMonk/take_hit";
     const char* file = filename.c_str();
@@ -121,4 +119,6 @@ void GroundMonk::TakeDamage()
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
+
+    SetHealth(health - damage);
 }

@@ -1,7 +1,6 @@
 #include "Character.h"
 #include "Textures.h"
 
-
 void Character::Update() 
 {
     srcRect.h = 220; //200
@@ -151,5 +150,12 @@ void Character::SaveProgress()
 }
 void Character::LoadProgress(string file)
 {
+    ifstream fin(file);
+    if (!fin.is_open()) {
+        throw invalid_argument("No such file name.");
+   }
 
+
+
+   fin.close();
 }

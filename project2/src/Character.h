@@ -57,7 +57,7 @@ public:
     virtual void Death() = 0;
     virtual void Defend() = 0;
     virtual void Idle() = 0;
-    virtual void TakeDamage() = 0;
+    virtual void TakeDamage(int damage) = 0;
 
 
     void SaveProgress(); // file output

@@ -13,8 +13,8 @@ class WaterPriestess : public Character
         void Death() override;
         void Defend() override;
         void Idle() override;
-        void TakeDamage() override;
-        
+        void TakeDamage(int damage) override;
+
         void SetMana(int);
         int GetMana();
     private:

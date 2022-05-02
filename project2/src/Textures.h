@@ -1,6 +1,5 @@
 #include "Game.h"
 
-using namespace std;
 
 #ifndef TEXTURES_H
 #define TEXTURES_H
