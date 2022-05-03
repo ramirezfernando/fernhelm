@@ -11,7 +11,9 @@ Projects for Introduction to Programming (Spring 2022)
 ## Getting Started
 
 ### Dependencies
-
+The system requirements for running on a Mac are:
+* Mac OS X 12.3.1 (not tested on other versions)
+* Apple clang version 13.1.6 (if other compiler is used, changed "clang++" to your compiler in Makefile)
 * Package Manager: [Homebrew](https://brew.sh/)
 * [SDL2](https://www.libsdl.org/)
 * [SDL2_image](https://www.libsdl.org/projects/SDL_image/)
