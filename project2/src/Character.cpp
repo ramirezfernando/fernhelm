@@ -100,7 +100,13 @@ void Character::SetLevel(int _level)
 }
 void Character::SetHealth(int _health)
 {
-    health = _health;
+    // In order for health to not go lower than zero
+    if (_health <= 0){
+        health = 0;
+    }
+    else {
+        health = _health;
+    }
 }
 void Character::SetEnemy(bool _enemy)
 {

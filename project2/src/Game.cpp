@@ -232,7 +232,7 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
     }
 
     // Initializing the background, text box, and enemy in order to display on screen
-    forest = new Background("assets/forest.png", 0, 0, false);
+    forest = new Background("assets/Backgrounds/forest.png", 0, 0, false);
     textBox = new Background("assets/TextBoxes/Main.png", 40, 490, true);
     //enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
 
@@ -376,29 +376,45 @@ void Game::HandleEvents()
             else if(textBox->GetPath() == "None") {
                 switch(event.key.keysym.sym){
                     case SDLK_1:
-                        enemy->Attack1();
-                        if (player->GetHealth() <= 0) { player->Death(); }
-                        else { player->SetHealth( (player->GetHealth()) - (2 * enemy->GetLevel())); }
+                        enemy->Attack1(); // player attack animation
+                        if (player->GetHealth() <= 0) { 
+                            player->Death(); 
+                        }
+                        else { 
+                            player->SetHealth( (player->GetHealth()) - (2 * enemy->GetLevel()));
+                        }
                         enemy->SetLevel(enemy->GetLevel() + 1); // increases level
                         break;
                     case SDLK_2:
-                        enemy->Attack2();
-                        if (player->GetHealth() <= 0) { player->Death(); }
-                        else { player->SetHealth( (player->GetHealth()) - (4 * enemy->GetLevel())); }
+                        enemy->Attack2(); // player attack animation
+                        if (player->GetHealth() <= 0) { 
+                            player->Death(); 
+                        }
+                        else { 
+                            player->SetHealth( (player->GetHealth()) - (4 * enemy->GetLevel()));
+                        }
                         enemy->SetLevel(enemy->GetLevel() + 1); // increases level
                         break;
                     case SDLK_3:
-                        enemy->Attack3();
-                        if (player->GetHealth() <= 0) { player->Death(); }
-                        else { player->SetHealth( (player->GetHealth()) - (6 * enemy->GetLevel())); }
-                        enemy->SetLevel(enemy->GetLevel() + 2); // increases level
+                        enemy->Attack3(); // player attack animation
+                        if (player->GetHealth() <= 0) { 
+                            player->Death(); 
+                        }
+                        else { 
+                            player->SetHealth( (player->GetHealth()) - (8 * enemy->GetLevel()));
+                        }
+                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
                         enemy->SetEnergy(enemy->GetEnergy() - 4); // decrease energy when using special attacks
                         break;
                     case SDLK_4:
-                        enemy->Attack4();
-                        if (player->GetHealth() <= 0) { player->Death(); }
-                        else { player->SetHealth( (player->GetHealth()) - (8 * enemy->GetLevel())); }
-                        enemy->SetLevel(enemy->GetLevel() + 3); // increases level
+                        enemy->Attack4(); // player attack animation
+                        if (player->GetHealth() <= 0) { 
+                            player->Death(); 
+                        }
+                        else { 
+                            player->SetHealth( (player->GetHealth()) - (10 * enemy->GetLevel()));
+                        }
+                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
                         enemy->SetEnergy(enemy->GetEnergy() - 8); // decrease energy when using special attacks
                         break;
                     default:
