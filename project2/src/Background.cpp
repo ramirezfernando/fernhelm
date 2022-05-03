@@ -3,6 +3,7 @@
 
 Background::Background(const char* background, int x, int y, bool _text)
 {
+    // Loads texture with the help of the Textures class
     backgroundTexture = Textures::LoadTexture(background);
     xpos = x;
     ypos = y;

@@ -9,7 +9,7 @@ using namespace std;
 class Character
 {
 public:
-    void Update();
+    void Update(); // This is what allows the images to change which creates the animation
     void Render();
     void Clean();
 

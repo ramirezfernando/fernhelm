@@ -22,8 +22,8 @@ CharacterInfo Game::Menu()
     CharacterInfo info;
 
     string fileName;
-    int option, characterChoice;
-    bool valid = false, validCharacter = false, validFile = false;
+    int option, characterChoice, enemyChoice;
+    bool valid = false, validCharacter = false, validEnemy = false, validFile = false;
 
     while(!valid) {
         cout << "+-------------------------+"<< endl 
@@ -51,7 +51,9 @@ CharacterInfo Game::Menu()
                     <<  "| (3) Ground Monk     |" << endl
                     <<  "+---------------------+"<< endl;
                 cout << "Enter 1, 2 or 3" << endl;
+                // Possibly do a try catch handling if the cin isn't an integer
                 cin >> characterChoice;
+                
                 switch(characterChoice) {
                     case 1:
                         info.characterChosen =  "FireKnight";
@@ -65,16 +67,48 @@ CharacterInfo Game::Menu()
                         info.characterChosen =  "GroundMonk";
                         validCharacter = true;
                         break;
+                    default:
+                        validCharacter = false;
+                        break;
+                }
             }
+            // Stores info thats gonna be used to initialize your character into a struct
             cout << "Enter your name: ";
             cin >> info.userName;
             info._level = 1;
             info._health = 100;
             info._energy = 100;
-            return info;
 
-
+            while (!validEnemy) {
+                cout << "+------------------------+" << endl
+                    <<  "| Choose Enemy Character |" << endl
+                    <<  "+------------------------+" << endl
+                    <<  "|  (1) Fire Knight       |" << endl
+                    <<  "|  (2) Water Priestess   |" << endl
+                    <<  "|  (3) Ground Monk       |" << endl
+                    <<  "+------------------------+"<< endl;
+                cout << "Enter 1, 2 or 3" << endl;
+                cin >> enemyChoice;
+                switch(enemyChoice) {
+                    case 1:
+                        enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
+                        validEnemy = true;
+                        break;
+                    case 2:
+                        enemy = new WaterPriestess(true); // bool is to check if an enemy, then invert their image
+                        validEnemy = true;
+                        break;
+                    case 3:
+                        enemy = new GroundMonk(true); // bool is to check if an enemy, then invert their image
+                        validEnemy = true;
+                        break;
+                    default:
+                        validEnemy = false;
+                        break;
+                }
             }
+            return info;
+        
         case 2:
             while (!validFile) {
                 cout << "Enter character data file name:" << endl;
@@ -82,13 +116,41 @@ CharacterInfo Game::Menu()
                 
                 // File input for loading character stats such as health, level, stamina
                 try {
-                    CharacterInfo ci = player->LoadProgress(fileName); // check inside Character.cpp for more info
-                    return ci;
+                    info = player->LoadProgress(fileName); // check inside Character.cpp for more info
+                    validFile = true;
+                    //return info;
                 }
-                catch(invalid_argument& i) {
-                    cout << i.what() << endl;
+                catch(invalid_argument& arg) {
+                    cout << arg.what() << endl;
                 }
             }
+            while (!validEnemy) {
+                cout << "+------------------------+" << endl
+                    <<  "| Choose Enemy Character |" << endl
+                    <<  "+------------------------+" << endl
+                    <<  "|  (1) Fire Knight       |" << endl
+                    <<  "|  (2) Water Priestess   |" << endl
+                    <<  "|  (3) Ground Monk       |" << endl
+                    <<  "+------------------------+"<< endl;
+                cout << "Enter 1, 2 or 3" << endl;
+                cin >> enemyChoice;
+                switch(enemyChoice) {
+                    case 1:
+                        enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
+                        validEnemy = true;
+                        break;
+                    case 2:
+                        enemy = new WaterPriestess(true); // bool is to check if an enemy, then invert their image
+                        validEnemy = true;
+                        break;
+                    case 3:
+                        enemy = new GroundMonk(true); // bool is to check if an enemy, then invert their image
+                        validEnemy = true;
+                        break;
+                }
+            }
+            return info;
+    
             
         default:
             cout << "default" << endl;
@@ -98,25 +160,24 @@ CharacterInfo Game::Menu()
 
 void Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+    // Initializing your character based on the inputs from menu screen
     CharacterInfo userCharacter = Menu();
-    string character = "", name = "", level = "", health = "", energy = "";
-    int count = 1;
-    
-    if (userCharacter.characterChosen == "FireKnight") {
+    // FOR NON SAVED DATA FILES (1) Choose Character
+    if (userCharacter.characterChosen == "FireKnight" && userCharacter._level == 1) {
         player = new FireKnight(userCharacter.userName);
         characterType = "FireKnight";
     }
-    else if (userCharacter.characterChosen == "WaterPriestess") {
+    else if (userCharacter.characterChosen == "WaterPriestess" && userCharacter._level == 1) {
         player = new WaterPriestess(userCharacter.userName);
         characterType = "WaterPriestess";
     }
-    else if (userCharacter.characterChosen == "GroundMonk") {
+    else if (userCharacter.characterChosen == "GroundMonk" && userCharacter._level == 1) {
         player = new GroundMonk(userCharacter.userName);
         characterType = "GroundMonk";
     }
+
+    // FOR SAVED DATA FILES, USE OVERLOADED CONSTRUCTORS (2) Load Character Data
     else {
-        
-        
         if (userCharacter.characterChosen == "FireKnight") {
             player = new FireKnight(userCharacter.userName, userCharacter._level, userCharacter._health, userCharacter._energy); 
             characterType = "FireKnight";
@@ -129,10 +190,10 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
             player = new GroundMonk(userCharacter.userName, userCharacter._level, userCharacter._health, userCharacter._energy); 
             characterType = "GroundMonk";
         } 
-          
     }
-    
 
+    //player->PrintStats();
+    //cout << player->GetLevel() << endl;
 
     int flags = 0;
     if (fullscreen == true)
@@ -170,9 +231,10 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
         cout << "Initializing TTF" << endl;
     }
 
+    // Initializing the background, text box, and enemy in order to display on screen
     forest = new Background("assets/forest.png", 0, 0, false);
     textBox = new Background("assets/TextBoxes/Main.png", 40, 490, true);
-    enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
+    //enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
 
     // meant for SDL2_ttf but doesn't work right now
     SDL_Color color = { 255, 255, 0};
@@ -182,19 +244,20 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
 }
 void Game::HandleEvents()
 {
-    bool someoneAlive = true;
     SDL_PollEvent(&event);
     
-   
     switch (event.type)
     {
+        // if you click the close window button, stops running and cleans memory
         case SDL_QUIT:
             isRunning = false;        
             break;
         case SDL_MOUSEBUTTONDOWN:
             break;
 
+        // if you click a button on the keyboard, the program will go down this path
         case SDL_KEYDOWN:
+            // if the textBox is on the main screen
             if (textBox->GetPath() == "assets/TextBoxes/Main.png") 
             {
                 switch(event.key.keysym.sym){
@@ -211,10 +274,11 @@ void Game::HandleEvents()
                         textBox->SetPath("assets/TextBoxes/Save.png");
                         break;
                     default:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
+                        textBox->SetPath("assets/TextBoxes/Main.png"); 
                         break;
                 }
             }
+            // if the textBox is on the attack screen
             else if(textBox->GetPath() == "assets/TextBoxes/Attack.png") 
             {
                 switch(event.key.keysym.sym){
@@ -227,7 +291,6 @@ void Game::HandleEvents()
                             enemy->SetHealth( (enemy->GetHealth()) - (2 * player->GetLevel()));
                         }
                         player->SetLevel(player->GetLevel() + 1); // increases level
-                        player->SetEnergy(player->GetEnergy() - 4);
                         textBox->SetPath("None");
                         break;
                     case SDLK_2:
@@ -249,8 +312,8 @@ void Game::HandleEvents()
                         else { 
                             enemy->SetHealth( (enemy->GetHealth()) - (8 * player->GetLevel()));
                         }
-                        player->SetLevel(player->GetLevel() + 1); // increases level
-                        player->SetEnergy(player->GetEnergy() - 4);
+                        player->SetLevel(player->GetLevel() + 2); // increases level
+                        player->SetEnergy(player->GetEnergy() - 4); // decrease energy when using special attacks
                         textBox->SetPath("None");
                         break;
                     case SDLK_4:
@@ -261,21 +324,22 @@ void Game::HandleEvents()
                         else { 
                             enemy->SetHealth( (enemy->GetHealth()) - (10 * player->GetLevel()));
                         }
-                        player->SetLevel(player->GetLevel() + 1); // increases level
-                        player->SetEnergy(player->GetEnergy() - 8);
+                        player->SetLevel(player->GetLevel() + 3); // increases level
+                        player->SetEnergy(player->GetEnergy() - 8); // decrease energy when using special attacks
                         textBox->SetPath("None");
                         break;
                     default:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
+                        textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
                         break;
                 }
             }
+            // if the textBox is on the stats screen
             else if(textBox->GetPath() == "assets/TextBoxes/Stats.png") 
             {
                 switch(event.key.keysym.sym){
                     case SDLK_1:
                         player->PrintStats();
-                        text->Display(0,0);
+                        text->Display(0,0); // does not work yet :/
                         break;
                     default:
                         textBox->SetPath("assets/TextBoxes/Main.png");
@@ -292,7 +356,7 @@ void Game::HandleEvents()
                         textBox->SetPath("assets/TextBoxes/Main.png");
                         break;
                     default:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
+                        textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
                         break;
                 }
             }
@@ -304,31 +368,38 @@ void Game::HandleEvents()
                         textBox->SetPath("assets/TextBoxes/Main.png");
                         break;
                     default:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
+                        textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
                         break;
                 }
             }
+            // when its the enemies turn
             else if(textBox->GetPath() == "None") {
                 switch(event.key.keysym.sym){
                     case SDLK_1:
                         enemy->Attack1();
                         if (player->GetHealth() <= 0) { player->Death(); }
                         else { player->SetHealth( (player->GetHealth()) - (2 * enemy->GetLevel())); }
+                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
                         break;
                     case SDLK_2:
                         enemy->Attack2();
                         if (player->GetHealth() <= 0) { player->Death(); }
                         else { player->SetHealth( (player->GetHealth()) - (4 * enemy->GetLevel())); }
+                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
                         break;
                     case SDLK_3:
                         enemy->Attack3();
                         if (player->GetHealth() <= 0) { player->Death(); }
                         else { player->SetHealth( (player->GetHealth()) - (6 * enemy->GetLevel())); }
+                        enemy->SetLevel(enemy->GetLevel() + 2); // increases level
+                        enemy->SetEnergy(enemy->GetEnergy() - 4); // decrease energy when using special attacks
                         break;
                     case SDLK_4:
                         enemy->Attack4();
                         if (player->GetHealth() <= 0) { player->Death(); }
                         else { player->SetHealth( (player->GetHealth()) - (8 * enemy->GetLevel())); }
+                        enemy->SetLevel(enemy->GetLevel() + 3); // increases level
+                        enemy->SetEnergy(enemy->GetEnergy() - 8); // decrease energy when using special attacks
                         break;
                     default:
                         textBox->SetPath("assets/TextBoxes/Main.png");

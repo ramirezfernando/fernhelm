@@ -4,7 +4,6 @@
 
 
 #include "Game.h"
-#include "Character.h"
 
 
 using namespace std;
@@ -20,10 +19,9 @@ int main(int argc, const char * argv[]) {
 
     Game *game = nullptr;
     game = new Game();
-
-    //game->Menu();
+    // Create the window
     game->Init("RPG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
-
+    // Game loop
     while (game->Running())
     {
         frameStart = SDL_GetTicks();
@@ -31,8 +29,8 @@ int main(int argc, const char * argv[]) {
         game->Update();
         game->Render();
 
+        // Handles frame rate
         frameTime = SDL_GetTicks() - frameStart;
-
         if (frameDelay > frameTime)
         {
             SDL_Delay(frameDelay - frameTime);

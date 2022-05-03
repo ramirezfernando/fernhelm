@@ -7,7 +7,7 @@
 #define TEXT_H
 
 using namespace std;
-
+// This class is meant to render strings on screen but does not work at the moment
 class Text
 {
     public:
