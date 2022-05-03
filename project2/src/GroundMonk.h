@@ -5,6 +5,8 @@ class GroundMonk : public Character
     public:
         // Constructor
         GroundMonk();
+        GroundMonk(bool enemy);
+        GroundMonk(string name);
         GroundMonk(string name, int level, int health, int _chakra);
 
         // Actions
@@ -17,8 +19,11 @@ class GroundMonk : public Character
         void Idle() override;
         void TakeDamage(int damage) override;
 
-        void SetChakra(int);
-        int GetChakra();
+        void SetEnergy(int) override;
+        int GetEnergy() override;
+
+        void PrintStats() override;
+        void SaveProgress(string characterType) override;
     private:
         int chakra;
 };

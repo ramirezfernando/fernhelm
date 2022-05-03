@@ -6,6 +6,7 @@ class FireKnight : public Character
     public:
         FireKnight();
         FireKnight(bool enemy);
+        FireKnight(string name);
         FireKnight(string name, int level, int health, int _stamina);
 
         // Actions
@@ -18,8 +19,13 @@ class FireKnight : public Character
         void Idle() override;
         void TakeDamage(int damage) override;
 
-        void SetStamina(int);
-        int GetStamina();
+        void SetEnergy(int) override;
+        int GetEnergy() override;
+
+        void PrintStats() override;
+        void SaveProgress(string characterType) override;
+
+        
     private:
         int stamina;
 };

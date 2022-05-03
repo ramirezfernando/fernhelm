@@ -10,7 +10,7 @@ WaterPriestess::WaterPriestess()
 
     SetPath(path);
     SetFrames(8);
-    SetSpeed(70);
+    SetSpeed(100);
     SetCount(1);
 
     SetName("Unknown");
@@ -19,7 +19,44 @@ WaterPriestess::WaterPriestess()
     
     mana = 100;
 }
+WaterPriestess::WaterPriestess(bool enemy)
+{
+    SetEnemy(enemy);
+    const char* file = "assets/WaterPriestess/idle";
+    SetTexture(file);
+    SetXPos(200);
+    SetYPos(20);
 
+    SetPath("assets/WaterPriestess/idle");
+    SetFrames(8);
+    SetSpeed(100);
+    SetCount(1);
+
+    SetName("Unknown");
+    SetLevel(1);
+    SetHealth(100);
+
+    mana = 100;
+}
+WaterPriestess::WaterPriestess(string name)
+{
+    SetPath("assets/WaterPriestess/idle");
+    SetFrames(8);
+    SetSpeed(100);
+    SetCount(1);
+    SetXPos(-80); 
+    SetYPos(20); 
+
+    SetName(name);
+    SetLevel(1);
+    SetHealth(100);
+    mana = 100;
+
+    string filename = path+"/"+"1.png";
+    const char* file = filename.c_str();
+    SetTexture(file);
+
+}
 WaterPriestess::WaterPriestess(string name, int level, int health, int _mana)
 {
     SetPath("assets/WaterPriestess/idle");
@@ -125,4 +162,32 @@ void WaterPriestess::TakeDamage(int damage)
     SetSpeed(100);
 
     SetHealth(health - damage);
+}
+void WaterPriestess::SetEnergy(int energy)
+{
+    mana = energy;
+}
+int WaterPriestess::GetEnergy()
+{
+    return mana;
+}
+void WaterPriestess::PrintStats() 
+{
+    cout << "+---------------------+" << endl
+        <<  "|   Character Stats   |" << endl
+        <<  "+---------------------+" << endl
+        <<  "Name: " << name << endl
+        <<  "Level: " << level << endl
+        <<  "Health: " << health << endl
+        <<  "Mana: " << mana << endl;
+}
+void WaterPriestess::SaveProgress(string characterType)
+{
+    ofstream fout("savedData/save.txt");
+    
+    fout << characterType << endl;
+    fout << name << endl;
+    fout << level << endl;
+    fout << health << endl;
+    fout << mana << endl;
 }

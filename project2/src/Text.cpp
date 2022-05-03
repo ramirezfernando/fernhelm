@@ -4,14 +4,12 @@ Text::Text(const string &fontPath, int fontSize, const string &message, SDL_Colo
 {
     textTexture = LoadFont(fontPath, fontSize, message, color);
     SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
-    cout << "Text::Text" << endl;
 }
 void Text::Display(int x, int y)
 {
     textRect.x = x;
     textRect.y = y;
     SDL_RenderCopy(Game::renderer, textTexture, NULL, &textRect);
-    cout << "Displaying" << endl;
 }
 SDL_Texture *Text::LoadFont(const string &fontPath, int fontSize, const string &message, SDL_Color &color)
 {

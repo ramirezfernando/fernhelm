@@ -3,6 +3,7 @@
 
 void Character::Update() 
 {
+
     srcRect.h = 220; //200
     srcRect.w = 320; //300
     
@@ -15,8 +16,7 @@ void Character::Update()
     destRect.w = srcRect.w * 2;
 
     // implement movement animation
-    if (count <= frames )
-    {
+    if (count <= frames ) {
         // conversions because "LoadTexture" takes a "const char*" as input
         // ex: path = "assests/FireKnight/1_atk"
         // then filename would be "assests/FireKnight/1_atk/(count).png"
@@ -26,15 +26,13 @@ void Character::Update()
         SDL_Delay(speed);
         count++;
     } 
-    
-    else
-    {
+    // this is to keep animation running infinitely
+    /*
+    else {
         // count = 1 because all my file names start at 1
-        count = 100;
+        count = 1;
     }
-    
-    
-    
+    */
 }
 
 
@@ -143,34 +141,25 @@ bool Character::GetEnemy()
 {
     return enemy;
 }
-// Save/Load data 
-void Character::SaveProgress()
+// Load data 
+CharacterInfo Character::LoadProgress(string file)
 {
-
-}
-string Character::LoadProgress(string file)
-{
-    string character, name, level, health, energy, combinedString;
+    CharacterInfo info;
+    //string character, name, level, health, energy, combinedString;
     ifstream fin("savedData/"+file);
     if (!fin.is_open()) {
         throw invalid_argument("No such file name.");
    }
 
     while(!fin.eof()) {
-        fin >> character;
-        fin >> name;
-        fin >> level;
-        fin >> health;
-        fin >> energy;
+        fin >> info.characterChosen;
+        fin >> info.userName;
+        fin >> info._level;
+        fin >> info._health;
+        fin >> info._energy;
     }
-    /*
-    cout << character << endl;
-    cout << name << endl;
-    cout << level << endl;
-    cout << health << endl;
-    cout << energy << endl;
-    */
-    combinedString = character + " " + name + " " + level + " " + health + " " + energy; 
+    
+    //combinedString = character + " " + name + " " + level + " " + health + " " + energy; 
     fin.close();
-    return combinedString;
+    return info;
 }

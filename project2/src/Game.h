@@ -4,17 +4,28 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
-
+#include <unistd.h> // sleep function
 
 using namespace std;
+
+// I GOT SOO MANY ERRORS FOR NOT PUTTING PRAGMA ONCE ON THE STRUCT :(
+#pragma once
+struct CharacterInfo 
+{
+    string characterChosen;
+    string userName;
+    int _level;
+    int _health;
+    int _energy;
+};
+
 
 #ifndef GAME_H
 #define GAME_H
 class Game
 {
 public: 
-    string Menu();
+    CharacterInfo Menu();
     void RenderHPBar(int x, int y, int w, int h, float Percent, SDL_Color FGColor, SDL_Color BGColor, SDL_Renderer* renderer);
     void Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen); // initialize window to display the game
     void HandleEvents();

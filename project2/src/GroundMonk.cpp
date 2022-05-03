@@ -19,6 +19,44 @@ GroundMonk::GroundMonk()
     
     chakra = 100;
 }
+GroundMonk::GroundMonk(bool enemy)
+{
+    SetEnemy(enemy);
+    const char* file = "assets/GroundMonk/idle";
+    SetTexture(file);
+    SetXPos(200);
+    SetYPos(20);
+
+    SetPath("assets/GroundMonk/idle");
+    SetFrames(6);
+    SetSpeed(100);
+    SetCount(1);
+
+    SetName("Unknown");
+    SetLevel(1);
+    SetHealth(100);
+
+    chakra = 100;
+}
+GroundMonk::GroundMonk(string name)
+{
+    SetPath("assets/GroundMonk/idle");
+    SetFrames(6);
+    SetSpeed(100);
+    SetCount(1);
+    SetXPos(-80); 
+    SetYPos(20); 
+
+    SetName(name);
+    SetLevel(1);
+    SetHealth(100);
+    chakra = 100;
+
+    string filename = path+"/"+"1.png";
+    const char* file = filename.c_str();
+    SetTexture(file);
+
+}
 GroundMonk::GroundMonk(string name, int level, int health, int _chakra)
 {
     SetPath("assets/GroundMonk/idle");
@@ -123,4 +161,32 @@ void GroundMonk::TakeDamage(int damage)
     SetSpeed(100);
 
     SetHealth(health - damage);
+}
+void GroundMonk::SetEnergy(int energy)
+{
+    chakra = energy;
+}
+int GroundMonk::GetEnergy()
+{
+    return chakra;
+}
+void GroundMonk::PrintStats() 
+{
+    cout << "+---------------------+" << endl
+        <<  "|   Character Stats   |" << endl
+        <<  "+---------------------+" << endl
+        <<  "Name: " << name << endl
+        <<  "Level: " << level << endl
+        <<  "Health: " << health << endl
+        <<  "Chakra: " << chakra << endl;
+}
+void GroundMonk::SaveProgress(string characterType)
+{
+    ofstream fout("savedData/save.txt");
+    
+    fout << characterType << endl;
+    fout << name << endl;
+    fout << level << endl;
+    fout << health << endl;
+    fout << chakra << endl;
 }

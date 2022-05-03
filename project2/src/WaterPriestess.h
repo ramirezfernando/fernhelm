@@ -4,6 +4,8 @@ class WaterPriestess : public Character
 {
     public:
         WaterPriestess();
+        WaterPriestess(bool enemy);
+        WaterPriestess(string name);
         WaterPriestess(string name, int level, int health, int _mana);
 
         void Attack1() override;
@@ -15,8 +17,11 @@ class WaterPriestess : public Character
         void Idle() override;
         void TakeDamage(int damage) override;
 
-        void SetMana(int);
-        int GetMana();
+        void SetEnergy(int) override;
+        int GetEnergy() override;
+
+        void PrintStats() override;
+        void SaveProgress(string characterType) override;
     private:
         int mana;
 };

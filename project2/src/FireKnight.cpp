@@ -39,7 +39,25 @@ FireKnight::FireKnight(bool enemy)
 
     stamina = 100;
 }
+FireKnight::FireKnight(string name)
+{
+    SetPath("assets/FireKnight/idle");
+    SetFrames(8);
+    SetSpeed(100);
+    SetCount(1);
+    SetXPos(-80); 
+    SetYPos(20); 
 
+    SetName(name);
+    SetLevel(1);
+    SetHealth(100);
+    stamina = 100;
+
+    string filename = path+"/"+"1.png";
+    const char* file = filename.c_str();
+    SetTexture(file);
+
+}
 FireKnight::FireKnight(string name, int level, int health, int _stamina)
 {
     SetPath("assets/FireKnight/idle");
@@ -143,17 +161,36 @@ void FireKnight::TakeDamage(int damage)
     SetFrames(6);
     SetCount(1);
     SetSpeed(100);
-
     SetHealth(health - damage);
 }
 
 
-void FireKnight::SetStamina(int _stamina)
+void FireKnight::SetEnergy(int _stamina)
 {
     stamina = _stamina;
 }
 
-int FireKnight::GetStamina()
+int FireKnight::GetEnergy()
 {
     return stamina;
+}
+void FireKnight::PrintStats() 
+{
+    cout << "+---------------------+" << endl
+        <<  "|   Character Stats   |" << endl
+        <<  "+---------------------+" << endl
+        <<  "Name: " << name << endl
+        <<  "Level: " << level << endl
+        <<  "Health: " << health << endl
+        <<  "Stamina: " << stamina << endl;
+}
+void FireKnight::SaveProgress(string characterType)
+{
+    ofstream fout("savedData/save.txt");
+    
+    fout << characterType << endl;
+    fout << name << endl;
+    fout << level << endl;
+    fout << health << endl;
+    fout << stamina << endl;
 }

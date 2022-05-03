@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <string>
+
 using namespace std;
 
 #ifndef CHARACTER_H
@@ -26,6 +27,7 @@ public:
     void SetName(string);
     void SetLevel(int);
     void SetHealth(int);
+    virtual void SetEnergy(int) = 0; // either stamina, chakra, or mana
     void SetEnemy(bool);
 
     SDL_Texture* GetTexture();
@@ -42,6 +44,7 @@ public:
     string GetName();
     int GetLevel();
     int GetHealth();
+    virtual int GetEnergy() = 0;
     bool GetEnemy();
     // Actions every character that inherits does
     /*
@@ -59,9 +62,9 @@ public:
     virtual void Idle() = 0;
     virtual void TakeDamage(int damage) = 0;
 
-
-    void SaveProgress(); // file output
-    string LoadProgress(string file); // file input
+    virtual void PrintStats() = 0;
+    virtual void SaveProgress(string characterType) = 0; // file output
+    CharacterInfo LoadProgress(string file); // file input
 
 
 protected:
