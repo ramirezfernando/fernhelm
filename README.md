@@ -13,9 +13,9 @@ Projects for Introduction to Programming (Spring 2022)
 ### Dependencies
 
 * Package Manager: [Homebrew](https://brew.sh/)
-* SDL2
-* SDL2_image
-* SDL2_ttf
+* [SDL2](https://www.libsdl.org/)
+* [SDL2_image](https://www.libsdl.org/projects/SDL_image/)
+* [SDL2_ttf](https://www.libsdl.org/projects/docs/SDL_ttf/SDL_ttf.html)
 
 ### Installing
 
