@@ -14,40 +14,41 @@ The system requirements for running on a Mac are:
 * [SDL2_image](https://www.libsdl.org/projects/SDL_image/)
 * [SDL2_ttf](https://www.libsdl.org/projects/docs/SDL_ttf/SDL_ttf.html)
 
-### Installing
+### Installation
 
-* Git clone https://github.com/ramirezfernando/COSC1437.git
-* cd ./project2
-
-* Download Homebrew
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-```
-* Download SDL2 libraries
-```
-brew install sdl2
-brew install sdl2_image
-brew install sdl2_ttf
-```
-* Link the SDL2 libraries to the project
-```
-ln -s /usr/local/Cellar/sdl2/2.0.20/include/SDL2 ./include/SDL2
-ln -s /usr/local/Cellar/sdl2/2.0.20/lib ./lib/SDL2
-
-ln -s /usr/local/Cellar/sdl2_image/2.0.5/include/SDL2 ./include/SDL2_image
-ln -s /usr/local/Cellar/sdl2_image/2.0.5/lib ./lib/SDL2_image
-
-ln -s /usr/local/Cellar/sdl2_ttf/2.0.18_1/include/SDL2 ./include/SDL2_ttf
-ln -s /usr/local/Cellar/sdl2_ttf/2.0.18_1/lib ./lib/SDL2_ttf
-```
+1. Clone the repo
+    ```sh
+    git clone https://github.com/ramirezfernando/turn-based-rpg.git
+    ```
+2. Download Homebrew
+    ```sh
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+    ```
+3. Download SDL2 libraries
+   ```sh
+    brew install sdl2
+    brew install sdl2_image
+    brew install sdl2_ttf
+   ```
+4. Link the SDL2 libraries to the project
+    ```sh
+    ln -s /usr/local/Cellar/sdl2/2.0.20/include/SDL2 ./include/SDL2
+    ln -s /usr/local/Cellar/sdl2/2.0.20/lib ./lib/SDL2
+    
+    ln -s /usr/local/Cellar/sdl2_image/2.0.5/include/SDL2 ./include/SDL2_image
+    ln -s /usr/local/Cellar/sdl2_image/2.0.5/lib ./lib/SDL2_image
+    
+    ln -s /usr/local/Cellar/sdl2_ttf/2.0.18_1/include/SDL2 ./include/SDL2_ttf
+    ln -s /usr/local/Cellar/sdl2_ttf/2.0.18_1/lib ./lib/SDL2_ttf
+    ```
 
 ### Executing program
 
-* Compile the program into an executable
+1. Compile the program into an executable
 ```
 make game
 ```
-* Run the executable
+2. Run the executable
 ```
 ./play
 ```
