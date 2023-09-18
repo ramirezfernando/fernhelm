@@ -7,8 +7,8 @@ A 2D turn-based battle game made using C++ and SDL2
 
 ### Dependencies
 The system requirements for running on a Mac are:
-* Mac OS X 12.3.1 (not tested on other versions)
-* Apple clang version 13.1.6 (if other compiler is used, changed "clang++" to your compiler in Makefile)
+* Compiler: [Clang](https://clang.llvm.org/)
+  * If another compiler is used, update the Makefile compiler to your compiler
 * Package Manager: [Homebrew](https://brew.sh/)
 * [SDL2](https://www.libsdl.org/)
 * [SDL2_image](https://www.libsdl.org/projects/SDL_image/)
