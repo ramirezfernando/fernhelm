@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Text.h"
 #include "Textures.h"
 #include "Character.h"
 #include "FireKnight.h"
@@ -11,7 +10,6 @@ Background* forest;
 Background* textBox;
 Character* player;
 Character* enemy;
-Text* text;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 string characterType;
@@ -325,7 +323,6 @@ void Game::HandleEvents()
                 switch(event.key.keysym.sym){
                     case SDLK_1:
                         player->PrintStats();
-                        text->Display(0,0); // does not work yet :/
                         break;
                     default:
                         textBox->SetPath("assets/TextBoxes/Main.png");
