@@ -182,7 +182,7 @@ void GroundMonk::PrintStats()
 }
 void GroundMonk::SaveProgress(string characterType)
 {
-    ofstream fout("savedData/save.txt");
+    ofstream fout("saved-data/save.txt");
     
     fout << characterType << endl;
     fout << name << endl;

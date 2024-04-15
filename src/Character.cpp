@@ -152,7 +152,7 @@ CharacterInfo Character::LoadProgress(string file)
 {
     CharacterInfo info;
     //string character, name, level, health, energy, combinedString;
-    ifstream fin("savedData/"+file);
+    ifstream fin("saved-data/"+file);
     if (!fin.is_open()) {
         throw invalid_argument("No such file name.");
    }
