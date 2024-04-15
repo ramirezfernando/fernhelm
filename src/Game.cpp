@@ -222,25 +222,11 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
     {
         isRunning = false;
     }
-    // Initializing SDL2_ttf (true type font) meant to display strings on screen but doesn't work right now.
-    if (TTF_Init() == -1) {
-        cout << "Could not initialize ttf" << endl;
-    }
-    else 
-    {
-        cout << "Initializing TTF" << endl;
-    }
 
     // Initializing the background, text box, and enemy in order to display on screen
     forest = new Background("assets/Backgrounds/forest.png", 0, 0, false);
     textBox = new Background("assets/TextBoxes/Main.png", 40, 490, true);
     //enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
-
-    // meant for SDL2_ttf but doesn't work right now
-    SDL_Color color = { 255, 255, 0};
-    text = new Text("assets/Fonts/8bit.ttf", 30, "TESTING", color);
-
-
 }
 void Game::HandleEvents()
 {
@@ -455,7 +441,6 @@ void Game::Clean()
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     IMG_Quit();
-    TTF_Quit();
     cout << "Game cleaned" << endl;
 }
 bool Game::Running()

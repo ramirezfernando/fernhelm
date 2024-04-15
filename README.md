@@ -12,7 +12,6 @@ The system requirements for running on a Mac are:
 * Package Manager: [Homebrew](https://brew.sh/)
 * [SDL2](https://www.libsdl.org/)
 * [SDL2_image](https://www.libsdl.org/projects/SDL_image/)
-* [SDL2_ttf](https://www.libsdl.org/projects/docs/SDL_ttf/SDL_ttf.html)
 
 ### Installation
 
@@ -28,7 +27,6 @@ The system requirements for running on a Mac are:
    ```sh
     brew install sdl2
     brew install sdl2_image
-    brew install sdl2_ttf
    ```
 4. Link the SDL2 libraries to the project
     ```sh
@@ -37,9 +35,6 @@ The system requirements for running on a Mac are:
     
     ln -s /usr/local/Cellar/sdl2_image/2.0.5/include/SDL2 ./include/SDL2_image
     ln -s /usr/local/Cellar/sdl2_image/2.0.5/lib ./lib/SDL2_image
-    
-    ln -s /usr/local/Cellar/sdl2_ttf/2.0.18_1/include/SDL2 ./include/SDL2_ttf
-    ln -s /usr/local/Cellar/sdl2_ttf/2.0.18_1/lib ./lib/SDL2_ttf
     ```
 
 ### Executing program
