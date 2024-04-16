@@ -27,6 +27,7 @@ public:
     void SetName(string);
     void SetLevel(int);
     void SetHealth(int);
+    void setCharacterType(string); // either FireKnight, WaterPriestess, or GroundMonk
     virtual void SetEnergy(int) = 0; // either stamina, chakra, or mana
     void SetEnemy(bool);
 
@@ -44,6 +45,7 @@ public:
     string GetName();
     int GetLevel();
     int GetHealth();
+    string getCharacterType();
     virtual int GetEnergy() = 0;
     bool GetEnemy();
     // Actions every character that inherits does
@@ -84,6 +86,7 @@ protected:
     string name;
     int level;
     int health;
+    string characterType;
     bool enemy = false;
 };
 

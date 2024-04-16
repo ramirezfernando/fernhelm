@@ -108,6 +108,10 @@ void Character::SetHealth(int _health)
         health = _health;
     }
 }
+void Character::setCharacterType(string _characterType)
+{
+    characterType = _characterType;
+}
 void Character::SetEnemy(bool _enemy)
 {
     enemy = _enemy;
@@ -142,6 +146,10 @@ int Character::GetLevel()
 int Character::GetHealth()
 {
     return health;
+}
+string Character::getCharacterType()
+{
+    return characterType;
 }
 bool Character::GetEnemy()
 {
