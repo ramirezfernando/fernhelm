@@ -270,7 +270,7 @@ void Game::HandleEvents()
                     isPlayer1Turn = false;
                     isPlayer2Turn = true;
                     textBox->SetPath("None");
-                    // Should be delay
+                    // TODO: add delay before text box is displayed
                     textBox->SetPath("assets/TextBoxes/Main.png");
                 }
                 else if(textBox->GetPath() == "assets/TextBoxes/Stats.png") {
@@ -295,7 +295,7 @@ void Game::HandleEvents()
                     isPlayer1Turn = true;
                     isPlayer2Turn = false;
                     textBox->SetPath("None");
-                    // Should be delay
+                    // TODO: add delay before text box is displayed
                     textBox->SetPath("assets/TextBoxes/Main.png");
                 }
                 else if(textBox->GetPath() == "assets/TextBoxes/Stats.png") {
@@ -322,17 +322,16 @@ void Game::Update()
 void Game::Render()
 {
     SDL_RenderClear(renderer);
-    // This is where to add stuff to render, 
+
     forest->Render();
     textBox->Render();
     player->Render();
     enemy->Render();
 
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer); // Double buffering
 }
 void Game::Clean()
 {
-    // add destructors for character and background
     forest->Clean();
     textBox->Clean();
     player->Clean();
@@ -383,11 +382,6 @@ void handleAttackEvents(SDL_Event &event, Background *textBox, Character *player
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
-            /*
-            else { 
-                enemy->SetHealth( (enemy->GetHealth()) - (2 * player->GetLevel()));
-            }
-            */
             player->SetLevel(player->GetLevel() + 1);
             textBox->SetPath("None");
             break;
@@ -398,11 +392,6 @@ void handleAttackEvents(SDL_Event &event, Background *textBox, Character *player
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
-            /*
-            else { 
-                enemy->SetHealth( (enemy->GetHealth()) - (4 * player->GetLevel()));
-            }
-            */
             player->SetLevel(player->GetLevel() + 1);
             textBox->SetPath("None");
             break;
@@ -413,13 +402,8 @@ void handleAttackEvents(SDL_Event &event, Background *textBox, Character *player
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
-            /*
-            else { 
-                enemy->SetHealth( (enemy->GetHealth()) - (8 * player->GetLevel()));
-            }
-            */
-            player->SetLevel(player->GetLevel() + 2); // increases level
-            player->SetEnergy(player->GetEnergy() - 4); // decrease energy when using special attacks
+            player->SetLevel(player->GetLevel() + 2);
+            player->SetEnergy(player->GetEnergy() - 4);
             textBox->SetPath("None");
             break;
         case SDLK_4:
@@ -429,13 +413,8 @@ void handleAttackEvents(SDL_Event &event, Background *textBox, Character *player
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
-            /*
-            else { 
-                enemy->SetHealth( (enemy->GetHealth()) - (10 * player->GetLevel()));
-            }
-            */
-            player->SetLevel(player->GetLevel() + 3); // increases level
-            player->SetEnergy(player->GetEnergy() - 8); // decrease energy when using special attacks
+            player->SetLevel(player->GetLevel() + 3);
+            player->SetEnergy(player->GetEnergy() - 8);
             textBox->SetPath("None");
             break;
         default:
@@ -471,7 +450,7 @@ void handleRunEvents(SDL_Event &event, Background *textBox, Game *game)
 void handleSaveEvents(SDL_Event &event, Background *textBox, Character *player)
 {
     cout << "Saving game..." << endl;
-    player->SaveProgress(player->getCharacterType()); // saves data and passes characterType as argument which can be "FireKnight", "WaterPriestess", or "GroundMonk"
+    player->SaveProgress(player->getCharacterType());
     cout << "Successfully saved game" << endl;
     switch(event.key.keysym.sym){
         case SDLK_1:
