@@ -264,6 +264,8 @@ void Game::HandleEvents()
                 cout << "It's Player 1's turn" << endl;
                 if (textBox->GetPath() == "assets/TextBoxes/Main.png") {
                     handleMenuEvents(event, textBox);
+                    player->Idle();
+                    enemy->Idle();
                 }
                 else if(textBox->GetPath() == "assets/TextBoxes/Attack.png") {
                     handleAttackEvents(event, textBox, player, enemy);
@@ -289,6 +291,8 @@ void Game::HandleEvents()
                 cout << "It's Player 2's turn" << endl;
                 if (textBox->GetPath() == "assets/TextBoxes/Main.png") {
                     handleMenuEvents(event, textBox);
+                    player->Idle();
+                    enemy->Idle();
                 }
                 else if(textBox->GetPath() == "assets/TextBoxes/Attack.png") {
                     handleAttackEvents(event, textBox, enemy, player);
@@ -384,6 +388,8 @@ void handleAttackEvents(SDL_Event &event, Background *textBox, Character *player
             }
             player->SetLevel(player->GetLevel() + 1);
             textBox->SetPath("None");
+
+            // Wait for attack and take damage animations to finish before going back to idle
             break;
         case SDLK_2:
             player->Attack2();

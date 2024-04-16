@@ -17,22 +17,21 @@ void Character::Update()
 
     // implement movement animation
     if (count <= frames ) {
-        // conversions because "LoadTexture" takes a "const char*" as input
-        // ex: path = "assests/FireKnight/1_atk"
-        // then filename would be "assests/FireKnight/1_atk/(count).png"
+        // Ex: path = "assests/FireKnight/1_atk" then filename would be "assests/FireKnight/1_atk/(count).png"
         string filename = path+"/"+ to_string(count) + ".png";
         const char* file = filename.c_str();
         characterTexture = Textures::LoadTexture(file);
-        SDL_Delay(speed);
+        SDL_Delay(70); // inplace of SDL_Delay(speed) for now
         count++;
     } 
     // this is to keep animation running infinitely
-    /*
     else {
         // count = 1 because all my file names start at 1
-        count = 1;
+        if (path == "assets/FireKnight/idle" || path == "assets/WaterPriestess/idle" || path == "assets/GroundMonk/idle") {
+            count = 1;
+        }
     }
-    */
+    
 }
 
 
