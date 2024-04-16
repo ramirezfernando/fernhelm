@@ -13,7 +13,8 @@ Character* player;
 Character* enemy;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-string characterType;
+bool isPlayer1Turn = true;
+bool isPlayer2Turn = false;
 
 // Helper functions to handle events based on the text box that is displayed
 void handleMenuEvents(SDL_Event &event, Background *textBox);
@@ -22,166 +23,199 @@ void handleStatsEvents(SDL_Event &event, Background* textBox, Character *player)
 void handleRunEvents(SDL_Event &event, Background* textBox, Game* game);
 void handleSaveEvents(SDL_Event &event, Background* textBox, Character *player);
 
-CharacterInfo Game::Menu() 
+CharacterInfo* Game::Menu() 
 {
-    CharacterInfo info;
+    CharacterInfo* info = new CharacterInfo[2];
 
     string fileName;
     int option, characterChoice, enemyChoice;
-    bool valid = false, validCharacter = false, validEnemy = false, validFile = false;
+    bool valid = false, validPlayer1Choice = false, validPlayer2Choice = false, validFile = false, isPlayer1LoadedGame = false, isPlayer2LoadedGame = false;
 
     while(!valid) {
         cout << "Welcome to Fernhelm..." << endl;
         cout << "> Enter '1' to choose your character" << endl;
-        cout << "> Enter '2' to load character data" << endl;
         cout << "> Enter '0' to quit" << endl;
         cin >> option;
-        if (option == 1 || option == 2) {
+
+        if (option == 1 || option == 0) {
             valid = true;
             break;
-        } else if (option == '0') {
-            exit(0);
-        } else {
+        } 
+        else {
             cout << "Invalid input!" << endl;
         }
     }
 
     switch(option) {
+        case 0:
+            exit(0);
+            break;
         case 1:
-            while (!validCharacter) {
-                cout << "Choose your character" << endl;
+            while (!validPlayer1Choice) {
+                cout << "[Player 1] Choose your character" << endl;
                 cout << "> Enter '1' to choose Fire Knight" << endl;
                 cout << "> Enter '2' to choose Water Priestess" << endl;
                 cout << "> Enter '3' to choose Ground Monk" << endl;
+                cout << "> Enter '4' to load character data" << endl;
+
                 cin >> characterChoice;
                 switch(characterChoice) {
                     case 1:
-                        info.characterChosen =  "FireKnight";
-                        validCharacter = true;
+                        info[0].characterChosen =  "FireKnight";
+                        validPlayer1Choice = true;
                         break;
                     case 2:
-                        info.characterChosen =  "WaterPriestess";
-                        validCharacter = true;
+                        info[0].characterChosen =  "WaterPriestess";
+                        validPlayer1Choice = true;
                         break;
                     case 3:
-                        info.characterChosen =  "GroundMonk";
-                        validCharacter = true;
+                        info[0].characterChosen =  "GroundMonk";
+                        validPlayer1Choice = true;
+                        break;
+                    case 4:
+                        while (!validFile) {
+                            cout << "[Player 1] Enter character data file name:" << endl;
+                            cin >> fileName;                            
+                            try {
+                                info[0] = player->LoadProgress(fileName);
+                                cout << "Successfully loaded game" << endl;
+                                isPlayer1LoadedGame = true;
+                                validFile = true;
+                                validPlayer1Choice = true;
+                            }
+                            catch(invalid_argument& arg) {
+                                cout << arg.what() << endl;
+                        }
                         break;
                     default:
-                        validCharacter = false;
+                        validPlayer1Choice = false;
                         break;
                 }
             }
-            // Stores info thats gonna be used to initialize your character into a struct
-            cout << "Enter your name: ";
-            cin >> info.userName;
-            info._level = 1;
-            info._health = 100;
-            info._energy = 100;
+            // Stores Player 1 info thats gonna be used to initialize your character into a struct
+            if (!isPlayer1LoadedGame) {
+                cout << "[Player 1] Enter your name: ";
+                cin >> info[0].userName;
+                info[0]._level = 1;
+                info[0]._health = 100;
+                info[0]._energy = 100;
+            }
 
-            while (!validEnemy) {
-                cout << "Choose your enemies character" << endl;
+            // reset validFile to false for Player 2
+            validFile = false;
+
+            while (!validPlayer2Choice) {
+                cout << "[Player 2] Choose your character" << endl;
                 cout << "> Enter '1' to choose Fire Knight" << endl;
                 cout << "> Enter '2' to choose Water Priestess" << endl;
                 cout << "> Enter '3' to choose Ground Monk" << endl;
+                cout << "> Enter '4' to load character data" << endl;
                 cin >> enemyChoice;
                 switch(enemyChoice) {
                     case 1:
-                        enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
-                        validEnemy = true;
+                        info[1].characterChosen =  "FireKnight";
+                        validPlayer2Choice = true;
                         break;
                     case 2:
-                        enemy = new WaterPriestess(true); // bool is to check if an enemy, then invert their image
-                        validEnemy = true;
+                        info[1].characterChosen =  "WaterPriestess";
+                        validPlayer2Choice = true;
                         break;
                     case 3:
-                        enemy = new GroundMonk(true); // bool is to check if an enemy, then invert their image
-                        validEnemy = true;
+                        info[1].characterChosen =  "GroundMonk";
+                        validPlayer2Choice = true;
+                        break;
+                    case 4:
+                        while (!validFile) {
+                            cout << "[Player 2] Enter character data file name:" << endl;
+                            cin >> fileName;                            
+                            try {
+                                info[1] = enemy->LoadProgress(fileName);
+                                cout << "Successfully loaded game" << endl;
+                                isPlayer2LoadedGame = true;
+                                validFile = true;
+                                validPlayer2Choice = true;
+                            }
+                            catch(invalid_argument& arg) {
+                                cout << arg.what() << endl;
+                            }
+                        }
                         break;
                     default:
-                        validEnemy = false;
+                        validPlayer2Choice = false;
                         break;
                 }
             }
+
+            // Stores Player 2 info thats gonna be used to initialize your character into a struct
+            if (!isPlayer2LoadedGame) {
+                cout << "[Player 2] Enter your name: ";
+                cin >> info[1].userName;
+                info[1]._level = 1;
+                info[1]._health = 100;
+                info[1]._energy = 100;
+            }
+
             return info;
-        
-        case 2:
-            while (!validFile) {
-                cout << "Enter character data file name:" << endl;
-                cin >> fileName;
-                
-                // File input for loading character stats such as health, level, stamina
-                try {
-                    info = player->LoadProgress(fileName); // check inside Character.cpp for more info
-                    validFile = true;
-                    //return info;
-                }
-                catch(invalid_argument& arg) {
-                    cout << arg.what() << endl;
-                }
-            }
-            while (!validEnemy) {
-                cout << "Choose your enemies character" << endl;
-                cout << "> Enter '1' to choose Fire Knight" << endl;
-                cout << "> Enter '2' to choose Water Priestess" << endl;
-                cout << "> Enter '3' to choose Ground Monk" << endl;
-                cin >> enemyChoice;
-                switch(enemyChoice) {
-                    case 1:
-                        enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
-                        validEnemy = true;
-                        break;
-                    case 2:
-                        enemy = new WaterPriestess(true); // bool is to check if an enemy, then invert their image
-                        validEnemy = true;
-                        break;
-                    case 3:
-                        enemy = new GroundMonk(true); // bool is to check if an enemy, then invert their image
-                        validEnemy = true;
-                        break;
-                }
-            }
-            return info;
-    
-            
-        default:
-            cout << "default" << endl;
-            break;
+        }
     }
 }
 
 void Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     // Initializing your character based on the inputs from menu screen
-    CharacterInfo userCharacter = Menu();
-    // FOR NON SAVED DATA FILES (1) Choose Character
-    if (userCharacter.characterChosen == "FireKnight" && userCharacter._level == 1) {
-        player = new FireKnight(userCharacter.userName);
-        characterType = "FireKnight";
-    }
-    else if (userCharacter.characterChosen == "WaterPriestess" && userCharacter._level == 1) {
-        player = new WaterPriestess(userCharacter.userName);
-        characterType = "WaterPriestess";
-    }
-    else if (userCharacter.characterChosen == "GroundMonk" && userCharacter._level == 1) {
-        player = new GroundMonk(userCharacter.userName);
-        characterType = "GroundMonk";
+    CharacterInfo* info = Menu();
+    // [Player 1] Non loaded game
+    if (info[0]._level == 1) {
+        if (info[0].characterChosen == "FireKnight") {
+        player = new FireKnight(false, info[0].userName);
+        }
+        else if (info[0].characterChosen == "WaterPriestess") {
+            player = new WaterPriestess(false, info[0].userName);
+        }
+        else if (info[0].characterChosen == "GroundMonk") {
+            player = new GroundMonk(false, info[0].userName);
+        }
+        player->setCharacterType(info[0].characterChosen);
+    } 
+    // [Player 1] Loaded game
+    else {
+        if (info[0].characterChosen == "FireKnight") {
+            player = new FireKnight(false, info[0].userName, info[0]._level, info[0]._health, info[0]._energy); 
+        }
+        else if (info[0].characterChosen == "WaterPriestess") {
+            player = new WaterPriestess(false, info[0].userName, info[0]._level, info[0]._health, info[0]._energy); 
+        }
+        else if (info[0].characterChosen == "GroundMonk") {
+            player = new GroundMonk(false, info[0].userName, info[0]._level, info[0]._health, info[0]._energy); 
+        } 
+        player->setCharacterType(info[0].characterChosen);
     }
 
-    // FOR SAVED DATA FILES, USE OVERLOADED CONSTRUCTORS (2) Load Character Data
+    // [Player 2] Non loaded game
+    if (info[1]._level == 1) {
+        if (info[1].characterChosen == "FireKnight") {
+        enemy = new FireKnight(true, info[1].userName);
+        }
+        else if (info[1].characterChosen == "WaterPriestess") {
+            enemy = new WaterPriestess(true, info[1].userName);
+        }
+        else if (info[1].characterChosen == "GroundMonk") {
+            enemy = new GroundMonk(true, info[1].userName);
+        }
+        enemy->setCharacterType(info[1].characterChosen);
+    } 
+    // [Player 2] Loaded game
     else {
-        if (userCharacter.characterChosen == "FireKnight") {
-            player = new FireKnight(userCharacter.userName, userCharacter._level, userCharacter._health, userCharacter._energy); 
-            characterType = "FireKnight";
+        if (info[1].characterChosen == "FireKnight") {
+            enemy = new FireKnight(true, info[1].userName, info[1]._level, info[1]._health, info[1]._energy); 
         }
-        else if (userCharacter.characterChosen == "WaterPriestess") {
-            player = new WaterPriestess(userCharacter.userName, userCharacter._level, userCharacter._health, userCharacter._energy); 
-            characterType = "WaterPriestess";
+        else if (info[1].characterChosen == "WaterPriestess") {
+            enemy = new WaterPriestess(true, info[1].userName, info[1]._level, info[1]._health, info[1]._energy); 
         }
-        else if (userCharacter.characterChosen == "GroundMonk") {
-            player = new GroundMonk(userCharacter.userName, userCharacter._level, userCharacter._health, userCharacter._energy); 
-            characterType = "GroundMonk";
+        else if (info[1].characterChosen == "GroundMonk") {
+            enemy = new GroundMonk(true, info[1].userName, info[1]._level, info[1]._health, info[1]._energy); 
         } 
+        enemy->setCharacterType(info[1].characterChosen);
     }
 
     int flags = 0;
@@ -215,27 +249,19 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
     // Initializing the background, text box, and enemy in order to display on screen
     forest = new Background("assets/Backgrounds/forest.png", 0, 0, false);
     textBox = new Background("assets/TextBoxes/Main.png", 40, 490, true);
-    //enemy = new FireKnight(true); // bool is to check if an enemy, then invert their image
 }
 void Game::HandleEvents()
 {
     SDL_PollEvent(&event);
-    bool isPlayer1Turn = true;
-    bool isPlayer2Turn = false;
 
     switch (event.type)
     {
-        // if you click the close window button, stops running and cleans memory
         case SDL_QUIT:
             isRunning = false;        
             break;
-
-        // if you click a button on the keyboard, the program will go down this path
         case SDL_KEYDOWN:
-            cout << "Player 1 turn:" << isPlayer1Turn << endl;
-            cout << "Player 2 turn:" << isPlayer2Turn << endl;
-            
             if (isPlayer1Turn) {
+                cout << "It's Player 1's turn" << endl;
                 if (textBox->GetPath() == "assets/TextBoxes/Main.png") {
                     handleMenuEvents(event, textBox);
                 }
@@ -260,7 +286,7 @@ void Game::HandleEvents()
             }
             
             else if (isPlayer2Turn) {
-
+                cout << "It's Player 2's turn" << endl;
                 if (textBox->GetPath() == "assets/TextBoxes/Main.png") {
                     handleMenuEvents(event, textBox);
                 }
@@ -427,7 +453,8 @@ void handleRunEvents(SDL_Event &event, Background *textBox, Game *game)
 }
 void handleSaveEvents(SDL_Event &event, Background *textBox, Character *player)
 {
-    player->SaveProgress(characterType); // saves data and passes characterType as argument which can be "FireKnight", "WaterPriestess", or "GroundMonk"
+    cout << "Saving game..." << endl;
+    player->SaveProgress(player->getCharacterType()); // saves data and passes characterType as argument which can be "FireKnight", "WaterPriestess", or "GroundMonk"
     switch(event.key.keysym.sym){
         case SDLK_1:
             textBox->SetPath("assets/TextBoxes/Main.png");

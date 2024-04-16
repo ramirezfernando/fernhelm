@@ -9,6 +9,7 @@ using namespace std;
 
 // I GOT SOO MANY ERRORS FOR NOT PUTTING PRAGMA ONCE ON THE STRUCT :(
 #pragma once
+
 struct CharacterInfo 
 {
     string characterChosen;
@@ -24,7 +25,7 @@ struct CharacterInfo
 class Game
 {
 public: 
-    CharacterInfo Menu();
+    CharacterInfo* Menu();
     void RenderHPBar(int x, int y, int w, int h, float Percent, SDL_Color FGColor, SDL_Color BGColor, SDL_Renderer* renderer);
     void Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen); // initialize window to display the game
     void HandleEvents();
