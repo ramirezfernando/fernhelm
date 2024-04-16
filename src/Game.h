@@ -32,6 +32,7 @@ public:
     void Render(); 
     void Clean(); // destroys SDL_Window
     bool Running(); // game loop variable
+    void SetRunning(bool run); // set game loop variable
     static SDL_Renderer* renderer; // static renderer without the need of having multiple renderers
     static SDL_Event event; 
 private:

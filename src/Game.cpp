@@ -15,6 +15,13 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 string characterType;
 
+// Helper functions to handle events based on the text box that is displayed
+void handleMenuEvents(SDL_Event &event, Background *textBox);
+void handleAttackEvents(SDL_Event &event, Background* textBox, Character *player, Character *enemy);
+void handleStatsEvents(SDL_Event &event, Background* textBox, Character *player);
+void handleRunEvents(SDL_Event &event, Background* textBox, Game* game);
+void handleSaveEvents(SDL_Event &event, Background* textBox, Character *player);
+
 CharacterInfo Game::Menu() 
 {
     CharacterInfo info;
@@ -213,184 +220,69 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
 void Game::HandleEvents()
 {
     SDL_PollEvent(&event);
-    
+    bool isPlayer1Turn = true;
+    bool isPlayer2Turn = false;
+
     switch (event.type)
     {
         // if you click the close window button, stops running and cleans memory
         case SDL_QUIT:
             isRunning = false;        
             break;
-        case SDL_MOUSEBUTTONDOWN:
-            break;
 
         // if you click a button on the keyboard, the program will go down this path
         case SDL_KEYDOWN:
-            // if the textBox is on the main screen
-            if (textBox->GetPath() == "assets/TextBoxes/Main.png") 
-            {
-                switch(event.key.keysym.sym){
-                    case SDLK_1:
-                        textBox->SetPath("assets/TextBoxes/Attack.png");
-                        break;
-                    case SDLK_2:
-                        textBox->SetPath("assets/TextBoxes/Stats.png");
-                        break;
-                    case SDLK_3:
-                        textBox->SetPath("assets/TextBoxes/Run.png");
-                        break;
-                    case SDLK_4:
-                        textBox->SetPath("assets/TextBoxes/Save.png");
-                        break;
-                    default:
-                        textBox->SetPath("assets/TextBoxes/Main.png"); 
-                        break;
+            cout << "Player 1 turn:" << isPlayer1Turn << endl;
+            cout << "Player 2 turn:" << isPlayer2Turn << endl;
+            
+            if (isPlayer1Turn) {
+                if (textBox->GetPath() == "assets/TextBoxes/Main.png") {
+                    handleMenuEvents(event, textBox);
                 }
+                else if(textBox->GetPath() == "assets/TextBoxes/Attack.png") {
+                    handleAttackEvents(event, textBox, player, enemy);
+                    isPlayer1Turn = false;
+                    isPlayer2Turn = true;
+                    textBox->SetPath("None");
+                    // Should be delay
+                    textBox->SetPath("assets/TextBoxes/Main.png");
+                }
+                else if(textBox->GetPath() == "assets/TextBoxes/Stats.png") {
+                    handleStatsEvents(event, textBox, player);
+                }
+                else if(textBox->GetPath() == "assets/TextBoxes/Run.png") {
+                    handleRunEvents(event, textBox, this);
+                }
+                else if(textBox->GetPath() == "assets/TextBoxes/Save.png") {
+                    handleSaveEvents(event, textBox, player);
+                }
+                
             }
-            // if the textBox is on the attack screen
-            else if(textBox->GetPath() == "assets/TextBoxes/Attack.png") 
-            {
-                switch(event.key.keysym.sym){
-                    case SDLK_1:
-                        player->Attack1(); // player attack animation
-                        if (enemy->GetHealth() <= 0) { 
-                            enemy->Death(); 
-                        }
-                        else { 
-                            enemy->SetHealth( (enemy->GetHealth()) - (2 * player->GetLevel()));
-                        }
-                        player->SetLevel(player->GetLevel() + 1); // increases level
-                        textBox->SetPath("None");
-                        break;
-                    case SDLK_2:
-                        player->Attack2();
-                        if (enemy->GetHealth() <= 0) { 
-                            enemy->Death(); 
-                        }
-                        else { 
-                            enemy->SetHealth( (enemy->GetHealth()) - (4 * player->GetLevel()));
-                        }
-                        player->SetLevel(player->GetLevel() + 1); // increases level
-                        textBox->SetPath("None");
-                        break;
-                    case SDLK_3:
-                        player->Attack3();
-                        if (enemy->GetHealth() <= 0) { 
-                            enemy->Death(); 
-                        }
-                        else { 
-                            enemy->SetHealth( (enemy->GetHealth()) - (8 * player->GetLevel()));
-                        }
-                        player->SetLevel(player->GetLevel() + 2); // increases level
-                        player->SetEnergy(player->GetEnergy() - 4); // decrease energy when using special attacks
-                        textBox->SetPath("None");
-                        break;
-                    case SDLK_4:
-                        player->Attack4();
-                        if (enemy->GetHealth() <= 0) { 
-                            enemy->Death(); 
-                        }
-                        else { 
-                            enemy->SetHealth( (enemy->GetHealth()) - (10 * player->GetLevel()));
-                        }
-                        player->SetLevel(player->GetLevel() + 3); // increases level
-                        player->SetEnergy(player->GetEnergy() - 8); // decrease energy when using special attacks
-                        textBox->SetPath("None");
-                        break;
-                    default:
-                        textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
-                        break;
+            
+            else if (isPlayer2Turn) {
 
-                    
+                if (textBox->GetPath() == "assets/TextBoxes/Main.png") {
+                    handleMenuEvents(event, textBox);
+                }
+                else if(textBox->GetPath() == "assets/TextBoxes/Attack.png") {
+                    handleAttackEvents(event, textBox, enemy, player);
+                    isPlayer1Turn = true;
+                    isPlayer2Turn = false;
+                    textBox->SetPath("None");
+                    // Should be delay
+                    textBox->SetPath("assets/TextBoxes/Main.png");
+                }
+                else if(textBox->GetPath() == "assets/TextBoxes/Stats.png") {
+                    handleStatsEvents(event, textBox, enemy);
+                }
+                else if(textBox->GetPath() == "assets/TextBoxes/Run.png") {
+                    handleRunEvents(event, textBox, this);
+                }
+                else if(textBox->GetPath() == "assets/TextBoxes/Save.png") {
+                    handleSaveEvents(event, textBox, enemy);
                 }
             }
-            // if the textBox is on the stats screen
-            else if(textBox->GetPath() == "assets/TextBoxes/Stats.png") 
-            {
-                switch(event.key.keysym.sym){
-                    case SDLK_1:
-                        player->PrintStats();
-                        break;
-                    default:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
-                        break;
-                }
-            }
-            else if(textBox->GetPath() == "assets/TextBoxes/Run.png") 
-            {
-                switch(event.key.keysym.sym){
-                    case SDLK_1:
-                        isRunning = false;
-                        break;
-                    case SDLK_2:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
-                        break;
-                    default:
-                        textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
-                        break;
-                }
-            }
-            else if(textBox->GetPath() == "assets/TextBoxes/Save.png") 
-            {
-                player->SaveProgress(characterType); // saves data and passes characterType as argument which can be "FireKnight", "WaterPriestess", or "GroundMonk"
-                switch(event.key.keysym.sym){
-                    case SDLK_1:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
-                        break;
-                    default:
-                        textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
-                        break;
-                }
-            }
-            // when its the enemies turn
-            else if(textBox->GetPath() == "None") {
-                switch(event.key.keysym.sym){
-                    case SDLK_1:
-                        enemy->Attack1(); // player attack animation
-                        if (player->GetHealth() <= 0) { 
-                            player->Death(); 
-                        }
-                        else { 
-                            player->SetHealth( (player->GetHealth()) - (2 * enemy->GetLevel()));
-                        }
-                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
-                        break;
-                    case SDLK_2:
-                        enemy->Attack2(); // player attack animation
-                        if (player->GetHealth() <= 0) { 
-                            player->Death(); 
-                        }
-                        else { 
-                            player->SetHealth( (player->GetHealth()) - (4 * enemy->GetLevel()));
-                        }
-                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
-                        break;
-                    case SDLK_3:
-                        enemy->Attack3(); // player attack animation
-                        if (player->GetHealth() <= 0) { 
-                            player->Death(); 
-                        }
-                        else { 
-                            player->SetHealth( (player->GetHealth()) - (8 * enemy->GetLevel()));
-                        }
-                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
-                        enemy->SetEnergy(enemy->GetEnergy() - 4); // decrease energy when using special attacks
-                        break;
-                    case SDLK_4:
-                        enemy->Attack4(); // player attack animation
-                        if (player->GetHealth() <= 0) { 
-                            player->Death(); 
-                        }
-                        else { 
-                            player->SetHealth( (player->GetHealth()) - (10 * enemy->GetLevel()));
-                        }
-                        enemy->SetLevel(enemy->GetLevel() + 1); // increases level
-                        enemy->SetEnergy(enemy->GetEnergy() - 8); // decrease energy when using special attacks
-                        break;
-                    default:
-                        textBox->SetPath("assets/TextBoxes/Main.png");
-                        break;
-                }
-            }
+            
         }
     
 }
@@ -429,4 +321,119 @@ void Game::Clean()
 bool Game::Running()
 {
     return isRunning;
+}
+void Game::SetRunning(bool _isRunning)
+{
+    isRunning = _isRunning;
+}
+void handleMenuEvents(SDL_Event &event, Background *textBox)
+{
+    switch(event.key.keysym.sym){
+        case SDLK_1:
+            textBox->SetPath("assets/TextBoxes/Attack.png");
+            break;
+        case SDLK_2:
+            textBox->SetPath("assets/TextBoxes/Stats.png");
+            break;
+        case SDLK_3:
+            textBox->SetPath("assets/TextBoxes/Run.png");
+            break;
+        case SDLK_4:
+            textBox->SetPath("assets/TextBoxes/Save.png");
+            break;
+        default:
+            textBox->SetPath("assets/TextBoxes/Main.png"); 
+            break;
+    }
+}
+void handleAttackEvents(SDL_Event &event, Background *textBox, Character *player, Character *enemy)
+{
+    switch(event.key.keysym.sym){
+        case SDLK_1:
+            player->Attack1(); // player attack animation
+            if (enemy->GetHealth() <= 0) { 
+                enemy->Death(); 
+            }
+            else { 
+                enemy->SetHealth( (enemy->GetHealth()) - (2 * player->GetLevel()));
+            }
+            player->SetLevel(player->GetLevel() + 1); // increases level
+            textBox->SetPath("None");
+            break;
+        case SDLK_2:
+            player->Attack2();
+            if (enemy->GetHealth() <= 0) { 
+                enemy->Death(); 
+            }
+            else { 
+                enemy->SetHealth( (enemy->GetHealth()) - (4 * player->GetLevel()));
+            }
+            player->SetLevel(player->GetLevel() + 1); // increases level
+            textBox->SetPath("None");
+            break;
+        case SDLK_3:
+            player->Attack3();
+            if (enemy->GetHealth() <= 0) { 
+                enemy->Death(); 
+            }
+            else { 
+                enemy->SetHealth( (enemy->GetHealth()) - (8 * player->GetLevel()));
+            }
+            player->SetLevel(player->GetLevel() + 2); // increases level
+            player->SetEnergy(player->GetEnergy() - 4); // decrease energy when using special attacks
+            textBox->SetPath("None");
+            break;
+        case SDLK_4:
+            player->Attack4();
+            if (enemy->GetHealth() <= 0) { 
+                enemy->Death(); 
+            }
+            else { 
+                enemy->SetHealth( (enemy->GetHealth()) - (10 * player->GetLevel()));
+            }
+            player->SetLevel(player->GetLevel() + 3); // increases level
+            player->SetEnergy(player->GetEnergy() - 8); // decrease energy when using special attacks
+            textBox->SetPath("None");
+            break;
+        default:
+            textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
+            break;
+    }
+}
+void handleStatsEvents(SDL_Event &event, Background *textBox, Character *player)
+{
+    switch(event.key.keysym.sym){
+        case SDLK_1:
+            player->PrintStats();
+            break;
+        default:
+            textBox->SetPath("assets/TextBoxes/Main.png");
+            break;
+    }
+}
+void handleRunEvents(SDL_Event &event, Background *textBox, Game *game)
+{
+    switch(event.key.keysym.sym){
+        case SDLK_1:
+            game->SetRunning(false);
+            break;
+        case SDLK_2:
+            textBox->SetPath("assets/TextBoxes/Main.png");
+            break;
+        default:
+            textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
+            break;
+    }
+}
+void handleSaveEvents(SDL_Event &event, Background *textBox, Character *player)
+{
+    player->SaveProgress(characterType); // saves data and passes characterType as argument which can be "FireKnight", "WaterPriestess", or "GroundMonk"
+    switch(event.key.keysym.sym){
+        case SDLK_1:
+            textBox->SetPath("assets/TextBoxes/Main.png");
+            break;
+        default:
+            textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
+            break;
+    }
 }
