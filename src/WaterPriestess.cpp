@@ -19,61 +19,81 @@ WaterPriestess::WaterPriestess()
     
     mana = 100;
 }
-WaterPriestess::WaterPriestess(bool enemy)
+WaterPriestess::WaterPriestess(bool isEnemy, string name)
 {
-    SetEnemy(enemy);
-    const char* file = "assets/WaterPriestess/idle";
-    SetTexture(file);
-    SetXPos(200);
-    SetYPos(20);
+    if (isEnemy) {
+        SetEnemy(isEnemy);
+        const char* file = "assets/WaterPriestess/idle";
+        SetTexture(file);
+        SetXPos(200);
+        SetYPos(20);
 
-    SetPath("assets/WaterPriestess/idle");
-    SetFrames(8);
-    SetSpeed(100);
-    SetCount(1);
+        SetPath("assets/WaterPriestess/idle");
+        SetFrames(8);
+        SetSpeed(100);
+        SetCount(1);
 
-    SetName("Unknown");
-    SetLevel(1);
-    SetHealth(100);
+        SetName(name);
+        SetLevel(1);
+        SetHealth(100);
 
-    mana = 100;
+        mana = 100;
+    }
+    else {
+        SetPath("assets/WaterPriestess/idle");
+        SetFrames(8);
+        SetSpeed(100);
+        SetCount(1);
+        SetXPos(-80); 
+        SetYPos(20); 
+
+        SetName(name);
+        SetLevel(1);
+        SetHealth(100);
+        mana = 100;
+
+        string filename = path+"/"+"1.png";
+        const char* file = filename.c_str();
+        SetTexture(file);
+    }
 }
-WaterPriestess::WaterPriestess(string name)
+
+WaterPriestess::WaterPriestess(bool isEnemy, string name, int level, int health, int _mana)
 {
-    SetPath("assets/WaterPriestess/idle");
-    SetFrames(8);
-    SetSpeed(100);
-    SetCount(1);
-    SetXPos(-80); 
-    SetYPos(20); 
+    if (isEnemy) {
+        SetEnemy(isEnemy);
+        const char* file = "assets/WaterPriestess/idle";
+        SetTexture(file);
+        SetXPos(200);
+        SetYPos(20);
 
-    SetName(name);
-    SetLevel(1);
-    SetHealth(100);
-    mana = 100;
+        SetPath("assets/WaterPriestess/idle");
+        SetFrames(8);
+        SetSpeed(100);
+        SetCount(1);
 
-    string filename = path+"/"+"1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
+        SetName(name);
+        SetLevel(level);
+        SetHealth(health);
+        mana = _mana;
+    }
+    else {
+        SetPath("assets/WaterPriestess/idle");
+        SetFrames(8);
+        SetSpeed(100);
+        SetCount(1);
+        SetXPos(-80); 
+        SetYPos(20); 
 
-}
-WaterPriestess::WaterPriestess(string name, int level, int health, int _mana)
-{
-    SetPath("assets/WaterPriestess/idle");
-    SetFrames(8);
-    SetSpeed(100);
-    SetCount(1);
-    SetXPos(-80); 
-    SetYPos(20); 
+        SetName(name);
+        SetLevel(level);
+        SetHealth(health);
+        mana = _mana;
 
-    SetName(name);
-    SetLevel(level);
-    SetHealth(health);
-     mana = _mana;
-
-    string filename = path+"/"+"1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
+        string filename = path+"/"+"1.png";
+        const char* file = filename.c_str();
+        SetTexture(file);
+    }
 }
 
 

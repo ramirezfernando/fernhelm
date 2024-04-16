@@ -4,9 +4,8 @@ class WaterPriestess : public Character
 {
     public:
         WaterPriestess();
-        WaterPriestess(bool enemy);
-        WaterPriestess(string name);
-        WaterPriestess(string name, int level, int health, int _mana);
+        WaterPriestess(bool isEnemy, string name);
+        WaterPriestess(bool isEnemy, string name, int level, int health, int _mana);
 
         void Attack1() override;
         void Attack2() override;
