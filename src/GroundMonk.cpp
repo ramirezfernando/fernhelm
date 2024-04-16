@@ -19,61 +19,80 @@ GroundMonk::GroundMonk()
     
     chakra = 100;
 }
-GroundMonk::GroundMonk(bool enemy)
+GroundMonk::GroundMonk(bool isEnemy, string name)
 {
-    SetEnemy(enemy);
-    const char* file = "assets/GroundMonk/idle";
-    SetTexture(file);
-    SetXPos(200);
-    SetYPos(20);
+    if (isEnemy) {
+        SetEnemy(isEnemy);
+        const char* file = "assets/GroundMonk/idle";
+        SetTexture(file);
+        SetXPos(200);
+        SetYPos(20);
 
-    SetPath("assets/GroundMonk/idle");
-    SetFrames(6);
-    SetSpeed(100);
-    SetCount(1);
+        SetPath("assets/GroundMonk/idle");
+        SetFrames(6);
+        SetSpeed(100);
+        SetCount(1);
 
-    SetName("Unknown");
-    SetLevel(1);
-    SetHealth(100);
+        SetName(name);
+        SetLevel(1);
+        SetHealth(100);
 
-    chakra = 100;
+        chakra = 100;
+    }
+    else {
+        SetPath("assets/GroundMonk/idle");
+        SetFrames(6);
+        SetSpeed(100);
+        SetCount(1);
+        SetXPos(-80); 
+        SetYPos(20); 
+
+        SetName(name);
+        SetLevel(1);
+        SetHealth(100);
+        chakra = 100;
+
+        string filename = path+"/"+"1.png";
+        const char* file = filename.c_str();
+        SetTexture(file);
+    }
 }
-GroundMonk::GroundMonk(string name)
+GroundMonk::GroundMonk(bool isEnemy, string name, int level, int health, int _chakra)
 {
-    SetPath("assets/GroundMonk/idle");
-    SetFrames(6);
-    SetSpeed(100);
-    SetCount(1);
-    SetXPos(-80); 
-    SetYPos(20); 
+    if (isEnemy) {
+        SetEnemy(isEnemy);
+        const char* file = "assets/GroundMonk/idle";
+        SetTexture(file);
+        SetXPos(200);
+        SetYPos(20);
 
-    SetName(name);
-    SetLevel(1);
-    SetHealth(100);
-    chakra = 100;
+        SetPath("assets/GroundMonk/idle");
+        SetFrames(6);
+        SetSpeed(100);
+        SetCount(1);
 
-    string filename = path+"/"+"1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
+        SetName(name);
+        SetLevel(level);
+        SetHealth(health);
+        chakra = _chakra;
+    }
+    else {
+        SetPath("assets/GroundMonk/idle");
+        SetFrames(6);
+        SetSpeed(100);
+        SetCount(1);
+        SetXPos(-80); 
+        SetYPos(20); 
 
-}
-GroundMonk::GroundMonk(string name, int level, int health, int _chakra)
-{
-    SetPath("assets/GroundMonk/idle");
-    SetFrames(6);
-    SetSpeed(100);
-    SetCount(1);
-    SetXPos(-80); 
-    SetYPos(20); 
+        SetName(name);
+        SetLevel(level);
+        SetHealth(health);
+        chakra = _chakra;
 
-    SetName(name);
-    SetLevel(level);
-    SetHealth(health);
-    chakra = _chakra;
-
-    string filename = path+"/"+"1.png";
-    const char* file = filename.c_str();
-    SetTexture(file);
+        string filename = path+"/"+"1.png";
+        const char* file = filename.c_str();
+        SetTexture(file);
+    }
 }
 
 void GroundMonk::Attack1() 
