@@ -5,9 +5,8 @@ class FireKnight : public Character
 {
     public:
         FireKnight();
-        FireKnight(bool enemy);
-        FireKnight(string name);
-        FireKnight(string name, int level, int health, int _stamina);
+        FireKnight(bool isEnemy, string name);
+        FireKnight(bool isEnemy, string name, int level, int health, int _stamina);
 
         // Actions
         void Attack1() override;
