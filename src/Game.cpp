@@ -158,6 +158,7 @@ CharacterInfo* Game::Menu()
             return info;
         }
     }
+    return info;
 }
 
 void Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
