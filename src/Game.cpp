@@ -14,7 +14,6 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 string characterType;
 
-
 CharacterInfo Game::Menu() 
 {
     CharacterInfo info;
@@ -24,34 +23,29 @@ CharacterInfo Game::Menu()
     bool valid = false, validCharacter = false, validEnemy = false, validFile = false;
 
     while(!valid) {
-        cout << "+-------------------------+"<< endl 
-            <<  "|      Elements RPG       |"<< endl
-            <<  "+-------------------------+"<< endl
-            <<  "| (1) Choose Character    |"<< endl
-            <<  "| (2) Load Character Data |"<< endl
-            <<  "+-------------------------+"<< endl;
-        cout << "Enter 1 or 2" << endl;
+        cout << "Welcome to Fernhelm..." << endl;
+        cout << "> Enter '1' to choose your character" << endl;
+        cout << "> Enter '2' to load character data" << endl;
+        cout << "> Enter '0' to quit" << endl;
         cin >> option;
         if (option == 1 || option == 2) {
             valid = true;
             break;
+        } else if (option == '0') {
+            exit(0);
+        } else {
+            cout << "Invalid input!" << endl;
         }
     }
 
     switch(option) {
         case 1:
             while (!validCharacter) {
-                cout << "+---------------------+" << endl
-                    <<  "|  Choose Character   |" << endl
-                    <<  "+---------------------+" << endl
-                    <<  "| (1) Fire Knight     |" << endl
-                    <<  "| (2) Water Priestess |" << endl
-                    <<  "| (3) Ground Monk     |" << endl
-                    <<  "+---------------------+"<< endl;
-                cout << "Enter 1, 2 or 3" << endl;
-                // Possibly do a try catch handling if the cin isn't an integer
+                cout << "Choose your character" << endl;
+                cout << "> Enter '1' to choose Fire Knight" << endl;
+                cout << "> Enter '2' to choose Water Priestess" << endl;
+                cout << "> Enter '3' to choose Ground Monk" << endl;
                 cin >> characterChoice;
-                
                 switch(characterChoice) {
                     case 1:
                         info.characterChosen =  "FireKnight";
@@ -78,14 +72,10 @@ CharacterInfo Game::Menu()
             info._energy = 100;
 
             while (!validEnemy) {
-                cout << "+------------------------+" << endl
-                    <<  "| Choose Enemy Character |" << endl
-                    <<  "+------------------------+" << endl
-                    <<  "|  (1) Fire Knight       |" << endl
-                    <<  "|  (2) Water Priestess   |" << endl
-                    <<  "|  (3) Ground Monk       |" << endl
-                    <<  "+------------------------+"<< endl;
-                cout << "Enter 1, 2 or 3" << endl;
+                cout << "Choose your enemies character" << endl;
+                cout << "> Enter '1' to choose Fire Knight" << endl;
+                cout << "> Enter '2' to choose Water Priestess" << endl;
+                cout << "> Enter '3' to choose Ground Monk" << endl;
                 cin >> enemyChoice;
                 switch(enemyChoice) {
                     case 1:
@@ -123,14 +113,10 @@ CharacterInfo Game::Menu()
                 }
             }
             while (!validEnemy) {
-                cout << "+------------------------+" << endl
-                    <<  "| Choose Enemy Character |" << endl
-                    <<  "+------------------------+" << endl
-                    <<  "|  (1) Fire Knight       |" << endl
-                    <<  "|  (2) Water Priestess   |" << endl
-                    <<  "|  (3) Ground Monk       |" << endl
-                    <<  "+------------------------+"<< endl;
-                cout << "Enter 1, 2 or 3" << endl;
+                cout << "Choose your enemies character" << endl;
+                cout << "> Enter '1' to choose Fire Knight" << endl;
+                cout << "> Enter '2' to choose Water Priestess" << endl;
+                cout << "> Enter '3' to choose Ground Monk" << endl;
                 cin >> enemyChoice;
                 switch(enemyChoice) {
                     case 1:
@@ -189,9 +175,6 @@ void Game::Init(const char* title, int xpos, int ypos, int width, int height, bo
             characterType = "GroundMonk";
         } 
     }
-
-    //player->PrintStats();
-    //cout << player->GetLevel() << endl;
 
     int flags = 0;
     if (fullscreen == true)
