@@ -3,7 +3,6 @@
 
 #ifndef TEXTURES_H
 #define TEXTURES_H
-// This class makes loading textures easy
 class Textures
 {
 public:

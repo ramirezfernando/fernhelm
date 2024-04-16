@@ -4,7 +4,7 @@ using namespace std;
 
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
-// This class is used to handle the background image
+
 class Background
 {
     public:

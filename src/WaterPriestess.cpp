@@ -125,7 +125,7 @@ void WaterPriestess::Attack3()
     const char* file = filename.c_str();
     SetTexture(file);
     SetPath("assets/WaterPriestess/3_atk");
-    SetFrames(28); // added image 28 from idle (1)
+    SetFrames(28);
     SetCount(1);
     SetSpeed(100);
 }
@@ -136,7 +136,7 @@ void WaterPriestess::Attack4()
     const char* file = filename.c_str();
     SetTexture(file);
     SetPath("assets/WaterPriestess/4_sp_atk");
-    SetFrames(33); // added image 33 from idle (1)
+    SetFrames(33);
     SetCount(1);
     SetSpeed(100);
 }

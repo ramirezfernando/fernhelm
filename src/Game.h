@@ -7,7 +7,6 @@
 
 using namespace std;
 
-// I GOT SOO MANY ERRORS FOR NOT PUTTING PRAGMA ONCE ON THE STRUCT :(
 #pragma once
 
 struct CharacterInfo 

@@ -10,7 +10,7 @@ FireKnight::FireKnight()
 
     SetPath("assets/FireKnight/idle");
     SetFrames(8);
-    SetSpeed(20); //
+    SetSpeed(20);
     SetCount(1);
 
     SetName("Unknown");
