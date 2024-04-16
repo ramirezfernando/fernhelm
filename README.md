@@ -1,7 +1,7 @@
 # Fernhelm
 Fernhelm is a 2D turn-based battle game made using C++ and SDL2.
 
-![RPG](/images/rpg.png)
+![fernhelm gif](https://github.com/ramirezfernando/fernhelm/assets/91701930/bc2a694d-81aa-49db-82b4-314f83566f76)
 
 ## Getting Started
 
