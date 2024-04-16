@@ -372,51 +372,68 @@ void handleMenuEvents(SDL_Event &event, Background *textBox)
             break;
     }
 }
+// TODO: Fix lag when running two player animations at the same time
 void handleAttackEvents(SDL_Event &event, Background *textBox, Character *player, Character *enemy)
 {
     switch(event.key.keysym.sym){
         case SDLK_1:
-            player->Attack1(); // player attack animation
+            player->Attack1();
+            enemy->TakeDamage(2 * player->GetLevel()); 
+
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
+            /*
             else { 
                 enemy->SetHealth( (enemy->GetHealth()) - (2 * player->GetLevel()));
             }
-            player->SetLevel(player->GetLevel() + 1); // increases level
+            */
+            player->SetLevel(player->GetLevel() + 1);
             textBox->SetPath("None");
             break;
         case SDLK_2:
             player->Attack2();
+            enemy->TakeDamage(4 * player->GetLevel());
+
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
+            /*
             else { 
                 enemy->SetHealth( (enemy->GetHealth()) - (4 * player->GetLevel()));
             }
-            player->SetLevel(player->GetLevel() + 1); // increases level
+            */
+            player->SetLevel(player->GetLevel() + 1);
             textBox->SetPath("None");
             break;
         case SDLK_3:
             player->Attack3();
+            enemy->TakeDamage(8 * player->GetLevel());
+
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
+            /*
             else { 
                 enemy->SetHealth( (enemy->GetHealth()) - (8 * player->GetLevel()));
             }
+            */
             player->SetLevel(player->GetLevel() + 2); // increases level
             player->SetEnergy(player->GetEnergy() - 4); // decrease energy when using special attacks
             textBox->SetPath("None");
             break;
         case SDLK_4:
             player->Attack4();
+            enemy->TakeDamage(10 * player->GetLevel());
+
             if (enemy->GetHealth() <= 0) { 
                 enemy->Death(); 
             }
+            /*
             else { 
                 enemy->SetHealth( (enemy->GetHealth()) - (10 * player->GetLevel()));
             }
+            */
             player->SetLevel(player->GetLevel() + 3); // increases level
             player->SetEnergy(player->GetEnergy() - 8); // decrease energy when using special attacks
             textBox->SetPath("None");
@@ -455,6 +472,7 @@ void handleSaveEvents(SDL_Event &event, Background *textBox, Character *player)
 {
     cout << "Saving game..." << endl;
     player->SaveProgress(player->getCharacterType()); // saves data and passes characterType as argument which can be "FireKnight", "WaterPriestess", or "GroundMonk"
+    cout << "Successfully saved game" << endl;
     switch(event.key.keysym.sym){
         case SDLK_1:
             textBox->SetPath("assets/TextBoxes/Main.png");
