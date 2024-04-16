@@ -5,6 +5,7 @@
 #include "GroundMonk.h"
 #include "WaterPriestess.h"
 #include "Background.h"
+#include<unistd.h>
 
 Background* forest;
 Background* textBox;
@@ -298,6 +299,8 @@ void Game::HandleEvents()
                     default:
                         textBox->SetPath("assets/TextBoxes/Main.png"); // if you press any key it will go back to the main text box
                         break;
+
+                    
                 }
             }
             // if the textBox is on the stats screen
@@ -406,7 +409,7 @@ void Game::Render()
     textBox->Render();
     player->Render();
     enemy->Render();
-    //
+
     SDL_RenderPresent(renderer);
 }
 void Game::Clean()

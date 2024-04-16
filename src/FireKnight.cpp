@@ -176,13 +176,11 @@ int FireKnight::GetEnergy()
 }
 void FireKnight::PrintStats() 
 {
-    cout << "+---------------------+" << endl
-        <<  "|   Character Stats   |" << endl
-        <<  "+---------------------+" << endl
-        <<  "Name: " << name << endl
-        <<  "Level: " << level << endl
-        <<  "Health: " << health << endl
-        <<  "Stamina: " << stamina << endl;
+    cout << "Character Stats:" << endl 
+        <<  "> Name: " << name << endl
+        <<  "> Level: " << level << endl
+        <<  "> Health: " << health << endl
+        <<  "> Stamina: " << stamina << endl;
 }
 void FireKnight::SaveProgress(string characterType)
 {

@@ -173,13 +173,11 @@ int WaterPriestess::GetEnergy()
 }
 void WaterPriestess::PrintStats() 
 {
-    cout << "+---------------------+" << endl
-        <<  "|   Character Stats   |" << endl
-        <<  "+---------------------+" << endl
-        <<  "Name: " << name << endl
-        <<  "Level: " << level << endl
-        <<  "Health: " << health << endl
-        <<  "Mana: " << mana << endl;
+    cout << "Character Stats:" << endl 
+        <<  "> Name: " << name << endl
+        <<  "> Level: " << level << endl
+        <<  "> Health: " << health << endl
+        <<  "> Mana: " << mana << endl;
 }
 void WaterPriestess::SaveProgress(string characterType)
 {

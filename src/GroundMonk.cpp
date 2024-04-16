@@ -172,13 +172,11 @@ int GroundMonk::GetEnergy()
 }
 void GroundMonk::PrintStats() 
 {
-    cout << "+---------------------+" << endl
-        <<  "|   Character Stats   |" << endl
-        <<  "+---------------------+" << endl
-        <<  "Name: " << name << endl
-        <<  "Level: " << level << endl
-        <<  "Health: " << health << endl
-        <<  "Chakra: " << chakra << endl;
+    cout << "Character Stats:" << endl 
+        <<  "> Name: " << name << endl
+        <<  "> Level: " << level << endl
+        <<  "> Health: " << health << endl
+        <<  "> Chakra: " << chakra << endl;
 }
 void GroundMonk::SaveProgress(string characterType)
 {
