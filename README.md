@@ -18,7 +18,7 @@ Fernhelm is a 2D, 2-player local co-op turn-based battle game developed using C+
 ### Gameplay <a name="gameplay"></a>
 Players can choose between three different characters to fight against each other. The game ends when a player has reached 0 health. The game begins in the terminal where players can choose their characters or load a saved game (saved games must be inside the `saved-data` folder). Players can choose between:
 
-| Fire Knight        | Water Priestess       | Ground Monk          |
+| Fire Knight 🔥       | Water Priestess 🌊      | Ground Monk 🪨         |
 |--------------------|-----------------------|----------------------|
 | ![Fire Knight](./assets/FireKnight/fire_knight.png) | ![Water Priestess](./assets/WaterPriestess/water_priestess.png) | ![Ground Monk](./assets/GroundMonk/ground_monk.png) |
 
